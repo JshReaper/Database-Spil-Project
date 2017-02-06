@@ -1,0 +1,7 @@
+﻿namespace Spillet
+{
+    class GameObject
+    {
+        
+    }
+}

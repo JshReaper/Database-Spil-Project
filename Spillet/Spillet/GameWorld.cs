@@ -8,6 +8,7 @@ namespace Spillet
 {
     class GameWorld
     {
+
     }
 }
 

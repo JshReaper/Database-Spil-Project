@@ -15,6 +15,12 @@ namespace Spillet
         public Form1()
         {
             InitializeComponent();
+            DataManager.GenerateDataBase();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

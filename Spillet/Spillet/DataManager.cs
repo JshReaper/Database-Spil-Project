@@ -10,7 +10,7 @@ namespace Spillet
 {
     static class DataManager
     {
-        static void Manage()
+        public static void GenerateDataBase()
         {
             bool fileExists = false;
             if (!File.Exists("Data.db"))
@@ -19,9 +19,14 @@ namespace Spillet
                 SQLiteConnection dbConnOnCreate = new SQLiteConnection("Data Source=Data.db;Version=3;");
                 dbConnOnCreate.Open();
                 //initial logic
-                String sqlOnCreate = "create table highscores (id integer primary key,name varchar(20), score int)";
+
+
+/*example       String sqlOnCreate = "create table highscores (id integer primary key,name varchar(20), score int)";
                 SQLiteCommand commandOnCreate = new SQLiteCommand(sqlOnCreate, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
+*/
+
+
 
                 //end logic
                 dbConnOnCreate.Close();
@@ -32,14 +37,16 @@ namespace Spillet
             {
                 //message to user?
             }
+        }
 
+        static void Save()
+        {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
 
             dbConn.Open();
             //ongoing logic
-            
+
             //end logic
-           
         }
     }
 }

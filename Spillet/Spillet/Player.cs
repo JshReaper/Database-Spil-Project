@@ -1,8 +1,7 @@
 namespace Spillet
 {
-    class  Player : GameObject
+    class Player : GameObject
     {
-        private float sanity;
-
+        
     }
 }

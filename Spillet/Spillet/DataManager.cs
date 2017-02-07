@@ -38,13 +38,14 @@ namespace Spillet
                 //message to user?
             }
         }
-
+        
         static void Save()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
-
             dbConn.Open();
             //ongoing logic
+
+
 
             //end logic
         }

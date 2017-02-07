@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Spillet
 {
+    /// <summary>
+    /// this class belongs to: Jacob Saaby Hansen
+    /// </summary>
     internal class Vector2D
     {
         // Denne klasse er som sådan ikke lavet "kun" til dette projekt, men som en del af en størrer samling 

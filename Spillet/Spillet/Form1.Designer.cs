@@ -34,6 +34,7 @@
             // 
             // GameLoop
             // 
+            this.GameLoop.Enabled = true;
             this.GameLoop.Interval = 40;
             this.GameLoop.Tick += new System.EventHandler(this.GameLoop_Tick);
             // 

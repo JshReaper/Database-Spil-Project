@@ -57,8 +57,8 @@ namespace Spillet
         }
         public static string RetriveInfo(string toRetrive)
         {
-            
 
+            return null;
         }
 
         static void Save()

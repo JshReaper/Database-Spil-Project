@@ -1,8 +1,8 @@
 ﻿namespace Spillet
 {
-    class GameObject
-    {
-        Vector2D position = new Vector2D();
+   abstract class GameObject
+   {
+       private Vector2D position;
         public GameObject()
         {
 

@@ -53,7 +53,12 @@ namespace Spillet
                 //message to user?
             }
         }
-        
+        public static string RetriveInfo(string toRetrive)
+        {
+            
+
+        }
+
         static void Save()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");

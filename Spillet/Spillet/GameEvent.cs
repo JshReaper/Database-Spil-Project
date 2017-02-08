@@ -2,9 +2,9 @@ namespace Spillet
 {
     class GameEvent
     {
-    public GameEvent()
+    public GameEvent(byte ID)
         {
-
+            
         }
             
 

@@ -2,11 +2,13 @@
 {
    abstract class GameObject
     {
-        private Vector2D posistion;
-
-        public GameObject(Vector2D posistion)
+        Vector2D position = new Vector2D();
+        public GameObject()
         {
-            this.posistion = posistion;
+
         }
+
+
+
     }
 }

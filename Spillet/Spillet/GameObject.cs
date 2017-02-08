@@ -7,6 +7,7 @@ namespace Spillet
    {
         private bool alive;
         private Vector2D position;
+        protected Image sprite;
         protected Rectangle displayRectangle;
         private float animationSpeed;
         private float scaleFactor;
@@ -44,7 +45,7 @@ namespace Spillet
 
        public void Draw(Graphics dc)
        {
-
+            dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Width * scaleFactor);
        }
    }
 }

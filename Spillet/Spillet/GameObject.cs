@@ -1,6 +1,6 @@
 ﻿namespace Spillet
 {
-    class GameObject
+   abstract class GameObject
     {
         private Vector2D posistion;
 

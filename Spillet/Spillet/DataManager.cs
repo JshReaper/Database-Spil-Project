@@ -21,10 +21,10 @@ namespace Spillet
                 //initial logic
 
 
-/*example       String sqlOnCreate = "create table highscores (id integer primary key,name varchar(20), score int)";
-                SQLiteCommand commandOnCreate = new SQLiteCommand(sqlOnCreate, dbConnOnCreate);
+                String table1 = "create table table1 (id integer primary key,name varchar(20), number int)";
+                SQLiteCommand commandOnCreate = new SQLiteCommand(table1, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
-*/
+
 
 
 

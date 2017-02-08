@@ -12,6 +12,8 @@ namespace Spillet
 {
     public partial class Form1 : Form
     {
+        private Graphics dc;
+        private GameWorld gw;
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +22,13 @@ namespace Spillet
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dc = CreateGraphics();
+            gw = new GameWorld(dc,this.DisplayRectangle);
+        }
+
+        private void GameLoop_Tick(object sender, EventArgs e)
+        {
+            gw.GameLoop();
         }
     }
 }

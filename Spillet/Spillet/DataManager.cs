@@ -15,6 +15,7 @@ namespace Spillet
             bool fileExists = false;
             if (!File.Exists("Data.db"))
             {
+                
                 SQLiteConnection.CreateFile("Data.db");
                 SQLiteConnection dbConnOnCreate = new SQLiteConnection("Data Source=Data.db;Version=3;");
                 dbConnOnCreate.Open();
@@ -43,6 +44,7 @@ namespace Spillet
                 commandOnCreate = new SQLiteCommand(sqlevent, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
 
+
                 //end logic
                 dbConnOnCreate.Close();
                 
@@ -53,7 +55,12 @@ namespace Spillet
                 //message to user?
             }
         }
-        
+        public static string RetriveInfo(string toRetrive)
+        {
+            
+
+        }
+
         static void Save()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
@@ -64,5 +71,8 @@ namespace Spillet
 
             //end logic
         }
+
+        
+        
     }
 }

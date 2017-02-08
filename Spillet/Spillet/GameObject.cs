@@ -1,4 +1,6 @@
-﻿namespace Spillet
+﻿using System.Drawing;
+
+namespace Spillet
 {
    abstract class GameObject
    {
@@ -34,7 +36,9 @@
             set { position = value; }
         }
 
-
-
-    }
+       public void Update(float fps)
+       {
+           
+       }
+   }
 }

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Spillet
 {
@@ -39,6 +40,11 @@ namespace Spillet
        public void Update(float fps)
        {
            
+       }
+
+       public void Draw(Graphics dc)
+       {
+
        }
    }
 }

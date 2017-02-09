@@ -49,7 +49,9 @@ namespace Spillet
         }
          void Draw()
         {
+            //clear all content
             dc.Clear(Color.Gray);
+            //background
             dc.DrawImage(Image.FromFile(@"Art Assets\Scenes\owbg.jpg"), 0, 0, displayRectangle.Height, displayRectangle.Height);
             foreach (var go in gameObjects) // Makes sure that we call draw on all gameobjects
                 go.Draw(dc);
@@ -62,6 +64,10 @@ namespace Spillet
             foreach (var go in gameObjects)
             {
                 go.Update(fps);
+            }
+            foreach (var gameObject in gameObjects)
+            {
+                gameObject.CheckCollision();
             }
         }
 

@@ -3,8 +3,8 @@ using System.Drawing;
 
 namespace Spillet
 {
-   abstract class GameObject
-   {
+    abstract class GameObject
+    {
         private bool alive;
         private Vector2D position;
         protected Image sprite;
@@ -24,13 +24,13 @@ namespace Spillet
             string[] imagePaths = imgPath.Split(';'); // Stores all paths in an array
             this.position = pos; // Sets the start position 
             this.animationFrames = new List<Image>(); // Instantiates the list of animations
-          
-                foreach (string path in imagePaths) // Adds all images to the list
-                {
-                    animationFrames.Add(Image.FromFile(path));
-                }
-                this.sprite = this.animationFrames[0]; // Selects a default sprite
-            
+
+            foreach (string path in imagePaths) // Adds all images to the list
+            {
+                animationFrames.Add(Image.FromFile(path));
+            }
+            this.sprite = this.animationFrames[0]; // Selects a default sprite
+
         }
         //Alive
         public bool Alive
@@ -52,14 +52,14 @@ namespace Spillet
         }
 
         public virtual void Update(float fps)
-       {
-           
-       }
+        {
 
-       public void Draw(Graphics dc)
-       {
+        }
+
+        public void Draw(Graphics dc)
+        {
             dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Width * scaleFactor);
-       }
+        }
 
         public void UpdateAnimation(float fps)
         {
@@ -92,7 +92,7 @@ namespace Spillet
         /// <summary>
         /// /
         /// </summary>
-        public void CheackCollision()
+        public void CheckCollision()
         {
             foreach (GameObject go in GameWorld.GameObjects)
             {
@@ -106,4 +106,4 @@ namespace Spillet
             }
         }
     }
-    }
+}

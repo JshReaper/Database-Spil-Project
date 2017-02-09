@@ -117,7 +117,6 @@
   <ItemGroup>
     <Folder Include="Art Assets\Enemy\" />
     <Folder Include="Art Assets\Enviroment\" />
-    <Folder Include="Art Assets\Items\" />
     <Folder Include="Art Assets\Props\" />
   </ItemGroup>
   <ItemGroup>

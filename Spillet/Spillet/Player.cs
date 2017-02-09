@@ -10,5 +10,10 @@ namespace Spillet
         {
             //add player movement
         }
+
+        public override void OnCollision(GameObject other)
+        {
+            //collision stuff
+        }
     }
 }

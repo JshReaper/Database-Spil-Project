@@ -92,7 +92,7 @@ namespace Spillet
         /// <summary>
         /// /
         /// </summary>
-        public void CheackCollision()
+        public void CheckCollision()
         {
             foreach (GameObject go in GameWorld.GameObjects)
             {

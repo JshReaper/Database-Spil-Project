@@ -8,12 +8,30 @@ namespace Spillet
         private bool movingLeft;
         private bool MovingUp;
         private bool movingDown;
+        private House houseToEnter;
         public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
         }
 
+        private bool toggle = false;
         public override void Update(float fps)
         {
+            
+            if (Keyboard.IsKeyDown(Keys.E) && houseToEnter != null && !toggle)
+            {
+                GameWorld.currentScene = houseToEnter.MyNumber;
+                houseToEnter = null;
+                toggle = !toggle;
+            }
+            else if(Keyboard.IsKeyDown(Keys.E) && !toggle)
+            {
+                GameWorld.currentScene = 0;
+                toggle = !toggle;
+            }
+            else if (!Keyboard.IsKeyDown(Keys.E) && toggle)
+            {
+                toggle = !toggle;
+            }
             if (Keyboard.IsKeyDown(Keys.W))
             {
                 MovingUp = true;
@@ -68,8 +86,10 @@ namespace Spillet
 
         public override void OnCollision(GameObject other)
         {
-            if (other is House)
+            var house = other as House;
+            if (house != null)
             {
+                houseToEnter = house;
                 if (MovingUp)
                 {
                     Posistion.Y += 1;
@@ -80,12 +100,12 @@ namespace Spillet
                     Posistion.Y -= 1;
                     movingDown = false;
                 }
-                if (movingLeft)
+                 if (movingLeft)
                 {
                     Posistion.X += 1;
                     movingLeft = false;
                 }
-                if (movingRight)
+                 if (movingRight)
                 {
                     Posistion.X -= 1;
                     movingRight = false;

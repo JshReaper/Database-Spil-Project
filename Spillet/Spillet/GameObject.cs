@@ -15,7 +15,6 @@ namespace Spillet
         private List<Image> animationFrames;
         protected Rectangle spritePart;
         private float speed;
-
         public GameObject(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed)
         {
             this.speed = speed; // Sets the movement speed
@@ -45,7 +44,7 @@ namespace Spillet
             }
         }
         //Henter og sætter værdigen af position
-        protected Vector2D Posistion
+        public Vector2D Posistion
         {
             get { return position; }
             set { position = value; }

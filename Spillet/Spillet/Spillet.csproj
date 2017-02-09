@@ -124,6 +124,9 @@
     <Content Include="Art Assets\Items\Letter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art Assets\Menus\Inventory\Inventory Resized.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Player\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

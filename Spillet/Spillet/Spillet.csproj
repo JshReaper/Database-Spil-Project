@@ -117,12 +117,14 @@
   <ItemGroup>
     <Folder Include="Art Assets\Enemy\" />
     <Folder Include="Art Assets\Enviroment\" />
-    <Folder Include="Art Assets\Player\" />
     <Folder Include="Art Assets\Props\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Art Assets\Buildings\house.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art Assets\Player\player_Idle_Right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Art Assets\Scenes\owbg.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

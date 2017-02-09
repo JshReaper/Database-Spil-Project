@@ -115,13 +115,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Art Assets\Buildings\" />
     <Folder Include="Art Assets\Enemy\" />
     <Folder Include="Art Assets\Enviroment\" />
     <Folder Include="Art Assets\Items\" />
     <Folder Include="Art Assets\Props\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Art Assets\Buildings\house.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Player\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

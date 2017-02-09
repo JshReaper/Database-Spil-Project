@@ -23,7 +23,7 @@ namespace Spillet
             this.displayRectangle = displayRectangle;
             backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
             this.dc = backBuffer.Graphics;
-
+            Player player = new Player();
 
         }
 
@@ -48,6 +48,7 @@ namespace Spillet
          void Draw()
         {
             dc.Clear(Color.Gray);
+            dc.DrawImage(Image.FromFile(@"Art Assets\Scenes\owbg.jpg"), 0, 0, displayRectangle.Height, displayRectangle.Height);
             foreach (var go in gameObjects) // Makes sure that we call draw on all gameobjects
                 go.Draw(dc);
             backBuffer.Render();

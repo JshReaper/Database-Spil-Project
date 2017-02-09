@@ -23,13 +23,15 @@ namespace Spillet
             this.displayRectangle = displayRectangle;
             backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
             this.dc = backBuffer.Graphics;
-            Player player = new Player();
+            
 
         }
 
         void SetupWorld()
         {
             //add objects and so on which should be there on load
+            Player player = new Player(1, @"Art Assets\\Player\\player.png", new Vector2D(200, 200), 1, 1);
+            gameObjects.Add(player);
         }
 
         public void GameLoop()
@@ -65,7 +67,8 @@ namespace Spillet
 
         void UpdateAnimation(float fps)
         {
-            
+            foreach (var go in gameObjects) // Makes sure that we call the UpdateAnimation on all GameObjects
+                go.UpdateAnimation(fps);
         }
     }
 }

@@ -12,12 +12,25 @@ namespace Spillet
         private float animationSpeed;
         private float scaleFactor;
         private float currentFrameIndex;
-        private List<Image> animationFrame;
+        private List<Image> animationFrames;
         protected Rectangle spritePart;
+        private float speed;
 
-        public GameObject()
+        public GameObject(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed)
         {
-
+            this.speed = speed; // Sets the movement speed
+            this.scaleFactor = scaleFactor; // Sets the scalefactor
+            this.animationSpeed = animationSpeed; // Sets the animation speed
+            string[] imagePaths = imgPath.Split(';'); // Stores all paths in an array
+            this.position = pos; // Sets the start position 
+            this.animationFrames = new List<Image>(); // Instantiates the list of animations
+          
+                foreach (string path in imagePaths) // Adds all images to the list
+                {
+                    animationFrames.Add(Image.FromFile(path));
+                }
+                this.sprite = this.animationFrames[0]; // Selects a default sprite
+            
         }
         //Alive
         public bool Alive
@@ -38,87 +51,32 @@ namespace Spillet
             set { position = value; }
         }
 
-       public void Update(float fps)
+        public virtual void Update(float fps)
        {
            
        }
 
+       public void Draw(Graphics dc)
+       {
+            dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Width * scaleFactor);
+       }
 
-        /// <summary>
-        /// laver en hitbox til billede
-        /// </summary>
-
-        public RectangleF CollisionBox
+        public void UpdateAnimation(float fps)
         {
-            get
-            {
-                return new RectangleF(position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
-            }
-            set { CollisionBox = value; }
-        }
-
-        /// <summary>
-        /// Tager variablerne og instantier dem.
-        /// </summary>
-        public GameObject(string imagepath, float animationSpeed, float scaleFactor, Vector2D startPos, Rectangle spritePart)
-        {
-
-            this.Alive = true;
-            this.spritePart = spritePart;
-
-            this.Position = startPos;
-            this.scaleFactor = scaleFactor;
-            this.animationSpeed = animationSpeed;
-            string[] imagePaths = imagepath.Split(';');
-            this.animationFrame = new List<Image>();
-
-            foreach (string path in imagePaths)
-            {
-                animationFrame.Add(Image.FromFile(path));
-            }
-            this.sprite = this.animationFrame[0];
-        }
-
-
-        /// <summary>
-        /// Tjekker om der er et GameObject hitbox som kolider med andre GameObjects
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool IsCollidingWith(GameObject other)
-        {
-            return CollisionBox.IntersectsWith(other.CollisionBox);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fps"></param>
-        public virtual void Update(float fps)
-        {
-            float Translation = (1 / fps);
-            CheackCollision();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fps"></param>
-        public virtual void UpdateAnimation(float fps)
-        {
-            float factor = (1 / fps);
+            // Calculates the factor to make the animatoin framerate independent
+            float factor = 1 / fps;
+            // Claculates the current index
             currentFrameIndex += factor * animationSpeed;
-            if (currentFrameIndex >= animationFrame.Count)
+            // Checks if we need to reset the animation 
+            if (currentFrameIndex >= animationFrames.Count)
             {
                 currentFrameIndex = 0;
             }
-            sprite = animationFrame[(int)currentFrameIndex];
+            // Changes the sprite
+            sprite = animationFrames[(int)currentFrameIndex];
+
         }
-        /// <summary>
-        /// /
-        /// </summary>
-        /// <param name="dc"></param>
-        public virtual void Draw(Graphics dc)
-        {
-            dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Width * scaleFactor);
+    }
             //#if Debug
             // dc.DrawRectangle(new Pen(Brushes.Red), CollisionBox.X, CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
             //#endif 

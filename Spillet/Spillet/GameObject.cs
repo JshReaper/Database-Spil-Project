@@ -76,22 +76,25 @@ namespace Spillet
             sprite = animationFrames[(int)currentFrameIndex];
 
         }
-    }
-            //#if Debug
-            // dc.DrawRectangle(new Pen(Brushes.Red), CollisionBox.X, CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
-            //#endif 
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
         public abstract void OnCollision(GameObject other);
+        public RectangleF CollisionBox
+        {
+            get
+            {
+                return new RectangleF(position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
+            }
+            set { CollisionBox = value; }
+        }
+        public bool IsCollidingWith(GameObject other)
+        {
+            return CollisionBox.IntersectsWith(other.CollisionBox);
+        }
         /// <summary>
         /// /
         /// </summary>
         public void CheackCollision()
         {
-            foreach (GameObject go in GameWorld.Objects)
+            foreach (GameObject go in GameWorld.GameObjects)
             {
                 if (go != this)
                 {
@@ -103,4 +106,4 @@ namespace Spillet
             }
         }
     }
-}
+    }

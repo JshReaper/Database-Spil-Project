@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Spillet
@@ -10,9 +11,14 @@ namespace Spillet
         private bool movingDown;
         private House houseToEnter;
         private float sanity;
+
+        public float MoveSpeed { get { return moveSpeed; } }
+        private float moveSpeed;
         public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
             this.sanity = sanity;
+            
+
         }
 
         private bool toggle = false;
@@ -54,11 +60,13 @@ namespace Spillet
         }
 
         private float removeEnemyTimer;
+        private float translation;
         public override void Update(float fps)
         {
+            translation = 1 / fps;
             enterHouseTimer += 1/ fps;
             removeEnemyTimer += 1 / fps;
-            
+            moveSpeed = speed * translation;
             if (enterHouseTimer >= 3)
             {
                 houseToEnter = null;
@@ -88,7 +96,7 @@ namespace Spillet
             }
             if (MovingUp)
             {
-                Posistion.Y -= 1;
+                Posistion.Y -= moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.S))
             {
@@ -100,7 +108,7 @@ namespace Spillet
             }
             if (movingDown)
             { 
-                Posistion.Y += 1;
+                Posistion.Y += moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.D))
             {
@@ -113,7 +121,7 @@ namespace Spillet
             if (movingRight)
             {
 
-                Posistion.X += 1;
+                Posistion.X += moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.A))
             {
@@ -125,7 +133,7 @@ namespace Spillet
             }
             if (movingLeft)
             {
-                Posistion.X -= 1;
+                Posistion.X -= moveSpeed;
 
             }
         }
@@ -139,23 +147,19 @@ namespace Spillet
                 houseToEnter = house;
                 if (MovingUp)
                 {
-                    Posistion.Y += 1;
-                    MovingUp = false;
+                    Posistion.Y += moveSpeed;
                 }
                 if (movingDown)
                 {
-                    Posistion.Y -= 1;
-                    movingDown = false;
+                    Posistion.Y -= moveSpeed;
                 }
                  if (movingLeft)
                 {
-                    Posistion.X += 1;
-                    movingLeft = false;
+                    Posistion.X += moveSpeed;
                 }
                  if (movingRight)
                 {
-                    Posistion.X -= 1;
-                    movingRight = false;
+                    Posistion.X -= moveSpeed;
                 }
             }
         }

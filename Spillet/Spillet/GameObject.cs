@@ -75,7 +75,11 @@ namespace Spillet
             sprite = animationFrames[(int)currentFrameIndex];
 
         }
-        public abstract void OnCollision(GameObject other);
+
+        public virtual void OnCollision(GameObject other)
+        {
+            
+        }
         public RectangleF CollisionBox
         {
             get
@@ -84,6 +88,8 @@ namespace Spillet
             }
             set { CollisionBox = value; }
         }
+        
+
         public bool IsCollidingWith(GameObject other)
         {
             return CollisionBox.IntersectsWith(other.CollisionBox);

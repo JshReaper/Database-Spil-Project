@@ -33,7 +33,7 @@ namespace Spillet
         {
             currentScene = 0;
             //add objects and so on which should be there on load
-            player = new Player(1, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 1, 1);
+            player = new Player(1, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 1, 1,100);
             
             house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(500, 300), 0.4f, 1,1);
             
@@ -103,6 +103,7 @@ namespace Spillet
         }
         void Update(float fps)
         {
+            player.FixedUpdate();
             foreach (var go in gameObjects)
             {
                 go.Update(fps);

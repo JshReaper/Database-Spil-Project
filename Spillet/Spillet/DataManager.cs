@@ -67,9 +67,9 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(toRetrive, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
+            string toReturn = dr.GetString(1);
             dbCon.Close();
-
-            return dr.GetString(1);
+            return toReturn;
         }
 
         static void ContinueGame()

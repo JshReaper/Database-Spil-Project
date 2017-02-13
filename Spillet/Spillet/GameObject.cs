@@ -31,18 +31,6 @@ namespace Spillet
             this.sprite = this.animationFrames[0]; // Selects a default sprite
 
         }
-        //Alive
-        public bool Alive
-        {
-            get
-            {
-                return alive;
-            }
-            set
-            {
-                alive = value;
-            }
-        }
         //Henter og sætter værdigen af position
         public Vector2D Posistion
         {

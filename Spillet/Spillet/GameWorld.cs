@@ -10,6 +10,8 @@ namespace Spillet
     class GameWorld
     {
         Rectangle displayRectangle;
+        private static Rectangle staticDisplayRectangle;
+        public static Rectangle DisplayRectangle { get { return staticDisplayRectangle; }}
         BufferedGraphics backBuffer;
         float currentFps;
         Graphics dc;
@@ -18,6 +20,12 @@ namespace Spillet
         public static List<GameObject> GameObjects { get { return gameObjects; } }
         public static int currentScene { get; set; }
         private Player player;
+        private static Player staticPlayer;
+        public static Player Player
+        {
+            get { return staticPlayer; }
+        }
+
         private House house;
         public GameWorld(Graphics dc, Rectangle displayRectangle)
         {
@@ -33,7 +41,7 @@ namespace Spillet
         {
             currentScene = 0;
             //add objects and so on which should be there on load
-            
+           
             house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.4f, 1,1);
 
             //create player last
@@ -78,7 +86,8 @@ namespace Spillet
         }
         void Update(float fps)
         {
-            
+            staticPlayer = player;
+            staticDisplayRectangle = displayRectangle;
             player.FixedUpdate();
             foreach (var go in gameObjects)
             {
@@ -89,6 +98,15 @@ namespace Spillet
                 gameObject.CheckCollision();
             }
             SceneController(player.MoveSpeed);
+            if (player.Sanity <= 0)
+            {
+                GameOver();
+            }
+        }
+
+        private void GameOver()
+        {
+            //the game ends // player get shown restart or similar screen
         }
 
         void UpdateAnimation(float fps)
@@ -123,13 +141,15 @@ namespace Spillet
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
                     }
-                    StaticObject inBg1 = new StaticObject(0, @"Art Assets\Scenes\inHouse1.png", new Vector2D(0, 0), 3, 0, false);
                     gameObjects.Clear();
+                    StaticObject inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
+                    StaticObject bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
                     gameObjects.Add(inBg1);
+                    gameObjects.Add(bed);
 
                     //insert player last
                     gameObjects.Add(player);
-                    if (player.Posistion.Y < 37)
+                    if (player.Posistion.Y < 44)
                     {
                         player.Posistion.Y += movespeed;
                     }
@@ -141,7 +161,7 @@ namespace Spillet
                     {
                         player.Posistion.X += movespeed;
                     }
-                    if (player.Posistion.X > 696)
+                    if (player.Posistion.X > 698)
                     {
                         player.Posistion.X -= movespeed;
                     }

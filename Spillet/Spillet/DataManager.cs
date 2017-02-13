@@ -84,18 +84,39 @@ namespace Spillet
             return toReturn;
         }
 
-        public static string RetriveItem(int itemID)
+        public static string RetriveItemType(int itemID)
         {  
             SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
-            string retrieve = string.Format("Select * from Items where id = {0}",itemID);
+            string retrieve = string.Format("Select * from Item where id = {0}",itemID);
             SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
-            string toReturn = dr.GetString(2);
+            string toReturn = dr.GetString(3);
             dbCon.Close();
             return toReturn;
         }
-
+        public static string RetriveItemName(int itemID)
+        {
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve = string.Format("Select * from Item where id = {0}", itemID);
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            string toReturn = dr.GetString(1);
+            dbCon.Close();
+            return toReturn;
+        }
+        public static bool RetriveItemBool(int itemID)
+        {
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve = string.Format("Select * from Item where id = {0}", itemID);
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            bool toReturn = dr.GetBoolean(2);
+            dbCon.Close();
+            return toReturn;
+        }
         static void ContinueGame()
         {
             //get a saved game from the database

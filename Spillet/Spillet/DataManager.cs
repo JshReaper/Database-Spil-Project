@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Data;
 using System.IO;
 
 namespace Spillet
@@ -58,7 +59,7 @@ namespace Spillet
                 //select save or start new save game
             }
         }
-        public static string RetriveInfo(string toRetrive)
+        public static string RetriveEventInfo(string toRetrive)
         {
             //Only execute commands with specific ID in them or this WILLLLLL fail.
 
@@ -67,7 +68,8 @@ namespace Spillet
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
             dbCon.Close();
-            return null;
+
+            return dr.GetString(1);
         }
 
         static void ContinueGame()

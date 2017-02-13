@@ -16,7 +16,9 @@ namespace Spillet
         DateTime endTime;
         private static List<GameObject> gameObjects = new List<GameObject>();
         public static List<GameObject> GameObjects { get { return gameObjects; } }
-
+        public static int currentScene { get; set; }
+        private Player player;
+        private House house;
         public GameWorld(Graphics dc, Rectangle displayRectangle)
         {
             SetupWorld();
@@ -29,11 +31,13 @@ namespace Spillet
 
         void SetupWorld()
         {
+            currentScene = 0;
             //add objects and so on which should be there on load
-            Player player = new Player(1, @"Art Assets\\Player\\player.png", new Vector2D(200, 200), 1, 1);
-            gameObjects.Add(player);
-            House house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(500, 300), 0.4f, 1);
-            gameObjects.Add(house);
+            
+            house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.4f, 1,1);
+
+            //create player last
+            player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100);
         }
 
         public void GameLoop()
@@ -54,15 +58,28 @@ namespace Spillet
             //clear all content
             dc.Clear(Color.Gray);
             //background
-            dc.DrawImage(Image.FromFile(@"Art Assets\Scenes\owbg.jpg"), 0, 0, displayRectangle.Height, displayRectangle.Height);
+            
             foreach (var go in gameObjects) // Makes sure that we call draw on all gameobjects
                 go.Draw(dc);
             backBuffer.Render();
 
         }
 
+        private float playerOgPX = 200;
+        private float playerOgPY = 200;
+        private bool playerHasBeenReset;
+        private bool playerHasEnteredHouse;
+        void resetPlayerPos()
+        {
+            player.Posistion.X = playerOgPX;
+            player.Posistion.Y = playerOgPY;
+            playerHasBeenReset = true;
+            playerHasEnteredHouse = false;
+        }
         void Update(float fps)
         {
+            
+            player.FixedUpdate();
             foreach (var go in gameObjects)
             {
                 go.Update(fps);
@@ -71,12 +88,66 @@ namespace Spillet
             {
                 gameObject.CheckCollision();
             }
+            SceneController(player.MoveSpeed);
         }
 
         void UpdateAnimation(float fps)
         {
             foreach (var go in gameObjects) // Makes sure that we call the UpdateAnimation on all GameObjects
                 go.UpdateAnimation(fps);
+        }
+
+        void SceneController(float movespeed)
+        {
+            switch (currentScene)
+            {
+                case 0:
+                    if (!playerHasBeenReset)
+                        resetPlayerPos();
+                    gameObjects.Clear();
+                    StaticObject outBg = new StaticObject(0, @"Art Assets\Scenes\owbg.jpg", new Vector2D(0, 0), 1, 0, false);
+                    gameObjects.Add(outBg);
+                    gameObjects.Add(house);
+
+                    //insert player last
+                    gameObjects.Add(player);
+
+                    break;
+                case 1:
+                    playerHasBeenReset = false;
+                    if (!playerHasEnteredHouse)
+                    {
+                        playerOgPX = player.Posistion.X;
+                        playerOgPY = player.Posistion.Y;
+                        player.Posistion.X = 200;
+                        player.Posistion.Y = 200;
+                        playerHasEnteredHouse = true;
+                    }
+                    StaticObject inBg1 = new StaticObject(0, @"Art Assets\Scenes\inHouse1.png", new Vector2D(0, 0), 3, 0, false);
+                    gameObjects.Clear();
+                    gameObjects.Add(inBg1);
+
+                    //insert player last
+                    gameObjects.Add(player);
+                    if (player.Posistion.Y < 37)
+                    {
+                        player.Posistion.Y += movespeed;
+                    }
+                    if (player.Posistion.Y > 296)
+                    {
+                        player.Posistion.Y -= movespeed;
+                    }
+                    if (player.Posistion.X < 16)
+                    {
+                        player.Posistion.X += movespeed;
+                    }
+                    if (player.Posistion.X > 696)
+                    {
+                        player.Posistion.X -= movespeed;
+                    }
+                    break;
+
+            }
         }
     }
 }

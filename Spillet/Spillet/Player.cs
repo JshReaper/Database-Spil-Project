@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Spillet
@@ -8,12 +9,83 @@ namespace Spillet
         private bool movingLeft;
         private bool MovingUp;
         private bool movingDown;
-        public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
+        private House houseToEnter;
+        private float sanity;
+
+        public float MoveSpeed { get { return moveSpeed; } }
+        private float moveSpeed;
+        public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
+            this.sanity = sanity;
+            
+
         }
 
+        private bool toggle = false;
+        private float enterHouseTimer = 0;
+
+        void OnEnemyEncounter(Enemy enemy)
+        {
+            sanity -= enemy.FearFactor;
+        }
+
+        public void FixedUpdate()
+        {
+            for (int i = 0; i < GameWorld.GameObjects.Count; i++)
+            {
+                if (GameWorld.GameObjects[i] is Enemy)
+                {
+                    Enemy enemy = (Enemy)GameWorld.GameObjects[i];
+                    if (GameWorld.GameObjects[i].Posistion.Dist(Posistion) <= 10 && !enemy.HaveEncountered)
+                    {
+                        
+                        OnEnemyEncounter((Enemy)GameWorld.GameObjects[i]);
+                        enemy.HaveEncountered = true;
+                        removeEnemyTimer = 0;
+                    }
+                }
+            }
+            if (removeEnemyTimer > 3)
+            {
+                for (int i = 0; i < GameWorld.GameObjects.Count; i++)
+                {
+                    if (GameWorld.GameObjects[i] is Enemy)
+                    {
+                        Enemy enemy = (Enemy)GameWorld.GameObjects[i];
+                        if(enemy.HaveEncountered)
+                        GameWorld.GameObjects.Remove(enemy);
+                    }
+                }
+            }
+        }
+
+        private float removeEnemyTimer;
+        private float translation;
         public override void Update(float fps)
         {
+            translation = 1 / fps;
+            enterHouseTimer += 1/ fps;
+            removeEnemyTimer += 1 / fps;
+            moveSpeed = speed * translation;
+            if (enterHouseTimer >= 3)
+            {
+                houseToEnter = null;
+            }
+            if (Keyboard.IsKeyDown(Keys.E) && houseToEnter != null && !toggle)
+            {
+                GameWorld.currentScene = houseToEnter.MyNumber;
+                houseToEnter = null;
+                toggle = !toggle;
+            }
+            else if(Keyboard.IsKeyDown(Keys.E) && !toggle)
+            {
+                GameWorld.currentScene = 0;
+                toggle = !toggle;
+            }
+            else if (!Keyboard.IsKeyDown(Keys.E) && toggle)
+            {
+                toggle = !toggle;
+            }
             if (Keyboard.IsKeyDown(Keys.W))
             {
                 MovingUp = true;
@@ -24,7 +96,7 @@ namespace Spillet
             }
             if (MovingUp)
             {
-                Posistion.Y -= 1;
+                Posistion.Y -= moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.S))
             {
@@ -36,7 +108,7 @@ namespace Spillet
             }
             if (movingDown)
             { 
-                Posistion.Y += 1;
+                Posistion.Y += moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.D))
             {
@@ -49,7 +121,7 @@ namespace Spillet
             if (movingRight)
             {
 
-                Posistion.X += 1;
+                Posistion.X += moveSpeed;
             }
             if (Keyboard.IsKeyDown(Keys.A))
             {
@@ -61,34 +133,33 @@ namespace Spillet
             }
             if (movingLeft)
             {
-                Posistion.X -= 1;
+                Posistion.X -= moveSpeed;
 
             }
         }
 
         public override void OnCollision(GameObject other)
         {
-            if (other is House)
+            var house = other as House;
+            if (house != null)
             {
+                enterHouseTimer = 0;
+                houseToEnter = house;
                 if (MovingUp)
                 {
-                    Posistion.Y += 1;
-                    MovingUp = false;
+                    Posistion.Y += moveSpeed;
                 }
                 if (movingDown)
                 {
-                    Posistion.Y -= 1;
-                    movingDown = false;
+                    Posistion.Y -= moveSpeed;
                 }
-                if (movingLeft)
+                 if (movingLeft)
                 {
-                    Posistion.X += 1;
-                    movingLeft = false;
+                    Posistion.X += moveSpeed;
                 }
-                if (movingRight)
+                 if (movingRight)
                 {
-                    Posistion.X -= 1;
-                    movingRight = false;
+                    Posistion.X -= moveSpeed;
                 }
             }
         }

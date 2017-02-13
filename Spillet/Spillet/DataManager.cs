@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Data;
 using System.IO;
 
 namespace Spillet
 {
     static class DataManager
     {
+        private static int currentSave = 1;
+
         public static void GenerateDataBase()
         {
             bool fileExists = false;
@@ -44,7 +47,7 @@ namespace Spillet
                 commandOnCreate = new SQLiteCommand(sqlevent, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
 
-
+                currentSave = 1;
                 //end logic
                 dbConnOnCreate.Close();
                 
@@ -53,9 +56,10 @@ namespace Spillet
             if (File.Exists("Data.db") && !fileExists)
             {
                 //message to user?
+                //select save or start new save game
             }
         }
-        public static string RetriveInfo(string toRetrive)
+        public static string RetriveEventInfo(string toRetrive)
         {
             //Only execute commands with specific ID in them or THIS WILL fail!
 
@@ -63,18 +67,83 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(toRetrive, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
-            return null;
+            string toReturn = dr.GetString(1);
+            dbCon.Close();
+            return toReturn;
+        }
+        public static string RetriveEventClues(string toRetrive)
+        {
+            
+
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            SQLiteCommand dbCom = new SQLiteCommand(toRetrive, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            string toReturn = dr.GetString(2);
+            dbCon.Close();
+            return toReturn;
         }
 
+        public static string RetriveItemType(int itemID)
+        {  
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve = string.Format("Select * from Item where id = {0}",itemID);
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            string toReturn = dr.GetString(3);
+            dbCon.Close();
+            return toReturn;
+        }
+        public static string RetriveItemName(int itemID)
+        {
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve = string.Format("Select * from Item where id = {0}", itemID);
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            string toReturn = dr.GetString(1);
+            dbCon.Close();
+            return toReturn;
+        }
+        public static bool RetriveItemBool(int itemID)
+        {
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve = string.Format("Select * from Item where id = {0}", itemID);
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            bool toReturn = dr.GetBoolean(2);
+            dbCon.Close();
+            return toReturn;
+        }
+        static void ContinueGame()
+        {
+            //get a saved game from the database
+        }
+        static void NewGame()
+        {
+            SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            dbConn.Open();
+            //ongoing logic
+            string playerSave = String.Format("Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5},{6});", GameWorld.Player.Sanity);
+            SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
+            commandOnCreate.ExecuteNonQuery();
+
+            //end logic
+            dbConn.Close();
+        }
         static void Save()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
             dbConn.Open();
             //ongoing logic
-
-
+            string playerSave = String.Format("Update player set sanity = {0} where ID = {1});", GameWorld.Player.Sanity , currentSave);
+            SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
+            commandOnCreate.ExecuteNonQuery();
 
             //end logic
+            dbConn.Close();
         }
 
         

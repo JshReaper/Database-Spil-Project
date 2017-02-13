@@ -12,6 +12,11 @@ namespace Spillet
         private House houseToEnter;
         private float sanity;
 
+        public float Sanity
+        {
+            get {return sanity; }
+        }
+
         public float MoveSpeed { get { return moveSpeed; } }
         private float moveSpeed;
         public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
@@ -67,6 +72,22 @@ namespace Spillet
             enterHouseTimer += 1/ fps;
             removeEnemyTimer += 1 / fps;
             moveSpeed = speed * translation;
+            if (Posistion.Y <= 0)
+            {
+                Posistion.Y += moveSpeed;
+            }
+            if (Posistion.Y >= GameWorld.DisplayRectangle.Bottom-(sprite.Height/1.4f))
+            {
+                Posistion.Y -= moveSpeed;
+            }
+            if (Posistion.X <= 0)
+            {
+                Posistion.X += moveSpeed;
+            }
+            if (Posistion.X >= GameWorld.DisplayRectangle.Right- sprite.Width)
+            {
+                Posistion.X -= moveSpeed;
+            }
             if (enterHouseTimer >= 3)
             {
                 houseToEnter = null;
@@ -77,7 +98,7 @@ namespace Spillet
                 houseToEnter = null;
                 toggle = !toggle;
             }
-            else if(Keyboard.IsKeyDown(Keys.E) && !toggle)
+            else if(Keyboard.IsKeyDown(Keys.E) && !toggle && Posistion.Y <= 120 && Posistion.X <= 50)
             {
                 GameWorld.currentScene = 0;
                 toggle = !toggle;
@@ -141,7 +162,8 @@ namespace Spillet
         public override void OnCollision(GameObject other)
         {
             var house = other as House;
-            if (house != null)
+            var StaticObject = other as StaticObject;
+            if (house != null || StaticObject !=null && StaticObject.CanCollide)
             {
                 enterHouseTimer = 0;
                 houseToEnter = house;

@@ -98,7 +98,7 @@ namespace Spillet
                 houseToEnter = null;
                 toggle = !toggle;
             }
-            else if(Keyboard.IsKeyDown(Keys.E) && !toggle)
+            else if(Keyboard.IsKeyDown(Keys.E) && !toggle && Posistion.Y <= 120 && Posistion.X <= 50)
             {
                 GameWorld.currentScene = 0;
                 toggle = !toggle;

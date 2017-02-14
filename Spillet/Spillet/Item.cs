@@ -27,9 +27,20 @@ namespace Spillet
             consumable = DataManager.RetriveItemBool(id);
         }
 
+
+        public static string Item
+        {
+            get { return Item; }
+            set { Item = value; }
+        }
+
         public override void OnCollision(GameObject other)
         {
-            //coll stuff
+            if (other is Player)
+            {
+                
+                ItemType += myItemType;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Spillet
 {
@@ -11,6 +12,13 @@ namespace Spillet
         private bool movingDown;
         private House houseToEnter;
         private float sanity;
+        private List<Item> inventory = new List<Item>();
+
+        public List<Item> Invintory
+        {
+            get { return inventory; }
+            set { inventory = value; }
+        }
 
         public float Sanity
         {

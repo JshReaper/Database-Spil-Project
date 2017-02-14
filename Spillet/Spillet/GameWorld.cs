@@ -159,6 +159,7 @@ namespace Spillet
                         player.Posistion.X = 200;
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
+                        GameEvent he = new GameEvent(1);
                     }
                     gameObjects.Clear();
                     

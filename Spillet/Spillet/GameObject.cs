@@ -14,8 +14,7 @@ namespace Spillet
         private float currentFrameIndex;
         private List<Image> animationFrames;
         protected Rectangle spritePart;
-        private float speed;
-
+        protected float speed;
         public GameObject(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed)
         {
             this.speed = speed; // Sets the movement speed
@@ -32,20 +31,8 @@ namespace Spillet
             this.sprite = this.animationFrames[0]; // Selects a default sprite
 
         }
-        //Alive
-        public bool Alive
-        {
-            get
-            {
-                return alive;
-            }
-            set
-            {
-                alive = value;
-            }
-        }
         //Henter og sætter værdigen af position
-        protected Vector2D Posistion
+        public Vector2D Posistion
         {
             get { return position; }
             set { position = value; }
@@ -56,9 +43,14 @@ namespace Spillet
 
         }
 
-        public void Draw(Graphics dc)
+        public virtual void Draw(Graphics dc)
         {
             dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
+
+            //Draws hitbox in red
+#if DEBUG
+            dc.DrawRectangle(new Pen(Brushes.Red), CollisionBox.X, CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
+#endif 
         }
 
         public void UpdateAnimation(float fps)
@@ -76,15 +68,29 @@ namespace Spillet
             sprite = animationFrames[(int)currentFrameIndex];
 
         }
-        public abstract void OnCollision(GameObject other);
-        public RectangleF CollisionBox
+
+        public virtual void OnCollision(GameObject other)
+        {
+            
+        }
+
+        protected RectangleF CollisionBox 
         {
             get
             {
-                return new RectangleF(position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
+                if (this is Player)
+                {
+                    return new RectangleF(position.X, position.Y+(sprite.Height*scaleFactor/1.5f), sprite.Width * scaleFactor, (sprite.Height * scaleFactor)-(sprite.Height * scaleFactor / 1.5f));
+                }
+                else
+                {
+                    return new RectangleF(position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
+                }
             }
             set { CollisionBox = value; }
         }
+        
+
         public bool IsCollidingWith(GameObject other)
         {
             return CollisionBox.IntersectsWith(other.CollisionBox);

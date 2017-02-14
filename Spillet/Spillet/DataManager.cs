@@ -27,7 +27,7 @@ namespace Spillet
 
                 string player = "create table Player (id integer primary key,sanity float, posX int, posY int, house int, inventory int, cluetoken int)";
                 string inventory = "create table Inventory(id integer primary key, item int)";
-                string item = "create table Item ( id integer primary key, name string, consumable bool, type string)";
+                string item = "create table Item ( id integer primary key, name string, consumable integer, type string)";
                 string enemy = "create table Enemy (id integer primary key, type string, fearFactor float)";
                 string house = "create table House (id integer primary key, name string, event int, level int)";
                 string villager = "create table Villager (id integer primary key, state int)";
@@ -55,7 +55,7 @@ namespace Spillet
                 eventMaker = "insert into Event values(null,\"You enter the house and immidiatly you feel something is wrong, you look around \n but you can't seem to find anything wrong, your gaze falls on a shadow on the floor seemingly from nowhere.\",0)";
                 commandOnCreate = new SQLiteCommand(eventMaker, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
-                string itemMaker = "insert into Item values(null,\"Note1\",false,\"Note\")";
+                string itemMaker = "insert into Item values(null,\"Note1\",0,\"Note\")";
                 commandOnCreate = new SQLiteCommand(itemMaker, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
                 currentSave = 1;

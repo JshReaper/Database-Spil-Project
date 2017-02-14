@@ -43,7 +43,7 @@ namespace Spillet
 
         }
 
-        public void Draw(Graphics dc)
+        public virtual void Draw(Graphics dc)
         {
             dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
 

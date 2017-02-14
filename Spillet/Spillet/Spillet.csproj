@@ -122,7 +122,9 @@
     <Folder Include="Art Assets\Enviroment\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Art Assets\Props\note.png" />
+    <Content Include="Art Assets\Props\note.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Buildings\house.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

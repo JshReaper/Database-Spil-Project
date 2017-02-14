@@ -43,10 +43,11 @@ namespace Spillet
 
         }
 
-        public void Draw(Graphics dc)
+        public virtual void Draw(Graphics dc)
         {
             dc.DrawImage(sprite, position.X, position.Y, sprite.Width * scaleFactor, sprite.Height * scaleFactor);
 
+            //Draws hitbox in red
 #if DEBUG
             dc.DrawRectangle(new Pen(Brushes.Red), CollisionBox.X, CollisionBox.Y, CollisionBox.Width, CollisionBox.Height);
 #endif 

@@ -17,8 +17,8 @@ namespace Spillet
         public Item(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, byte id) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
             this.id = id;
-            if(DataManager.RetriveItemType(id) == "Note")
-            myItemType = ItemType.Note;
+            if (DataManager.RetriveItemType(id) == "Note")
+                myItemType = ItemType.Note;
             if (DataManager.RetriveItemType(id) == "Lantern")
                 myItemType = ItemType.Lantern;
             if (DataManager.RetriveItemType(id) == "Oil")
@@ -27,9 +27,18 @@ namespace Spillet
             consumable = DataManager.RetriveItemBool(id);
         }
 
+        public override void Update(float fps)
+        {
+
+        }
+
+
         public override void OnCollision(GameObject other)
         {
-            //coll stuff
+            if (other is Player)
+            {
+
+            }
         }
     }
 }

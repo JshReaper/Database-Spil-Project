@@ -72,7 +72,7 @@ namespace Spillet
         }
         public static string RetriveEventInfo(string toRetrive)
         {
-            //Only execute commands with specific ID in them or this WILLLLLL fail.
+            //Only execute commands with specific ID in them or THIS WILL fail!
 
             SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
             SQLiteCommand dbCom = new SQLiteCommand(toRetrive, dbCon);

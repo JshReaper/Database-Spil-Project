@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Spillet
 {
@@ -11,6 +12,13 @@ namespace Spillet
         private bool movingDown;
         private House houseToEnter;
         private float sanity;
+        private List<Item> inventory = new List<Item>();
+
+        public List<Item> Invintory
+        {
+            get { return inventory; }
+            set { inventory = value; }
+        }
 
         public float Sanity
         {
@@ -66,8 +74,28 @@ namespace Spillet
 
         private float removeEnemyTimer;
         private float translation;
+        public override void Draw(Graphics dc)
+        {
+            base.Draw(dc);
+          //  pickUpItem = true;
+            Font font1 = new Font("Arial", 15);
+            Brush brush1 = new SolidBrush(Color.White);
+            string text;
+            if (pickUpItem)
+            {
+                text = "Press E to\nPickup item";
+                dc.DrawString(text, font1, brush1, 765, 50);
+            }
+            if (enterHouse)
+            {
+                text = "Press E to\nEnter the building";
+                dc.DrawString(text, font1, brush1, 765, 50);
+            }
+        }
+
         public override void Update(float fps)
         {
+            
             translation = 1 / fps;
             enterHouseTimer += 1/ fps;
             removeEnemyTimer += 1 / fps;
@@ -91,11 +119,21 @@ namespace Spillet
             if (enterHouseTimer >= 3)
             {
                 houseToEnter = null;
+                enterHouse = false;
             }
             if (Keyboard.IsKeyDown(Keys.E) && houseToEnter != null && !toggle)
             {
                 GameWorld.currentScene = houseToEnter.MyNumber;
                 houseToEnter = null;
+                toggle = !toggle;
+            }
+            else if (Keyboard.IsKeyDown(Keys.E) && itemToPickUp != null && !toggle)
+            {
+                itemToPickUp.Posistion.X = 700;
+                itemToPickUp.Posistion.Y = 500;
+                inventory.Add(itemToPickUp);
+                itemToPickUp = null;
+                pickUpItem = false;
                 toggle = !toggle;
             }
             else if(Keyboard.IsKeyDown(Keys.E) && !toggle && Posistion.Y <= 120 && Posistion.X <= 50)
@@ -159,12 +197,30 @@ namespace Spillet
             }
         }
 
+        private bool pickUpItem;
+        private bool enterHouse;
+        private Item itemToPickUp;
         public override void OnCollision(GameObject other)
         {
             var house = other as House;
-            var StaticObject = other as StaticObject;
-            if (house != null || StaticObject !=null && StaticObject.CanCollide)
+            var staticObject = other as StaticObject;
+            var item = other as Item;
+            
+                if (item != null)
+                {
+                    pickUpItem = true;
+                    itemToPickUp = item;
+                }
+                else
+                {
+                    pickUpItem = false;
+                }
+            if (house != null || staticObject !=null && staticObject.CanCollide)
             {
+                if (house != null)
+                {
+                    enterHouse = true;
+                }
                 enterHouseTimer = 0;
                 houseToEnter = house;
                 if (MovingUp)

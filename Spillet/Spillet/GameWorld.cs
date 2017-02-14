@@ -19,14 +19,17 @@ namespace Spillet
         private static List<GameObject> gameObjects = new List<GameObject>();
         public static List<GameObject> GameObjects { get { return gameObjects; } }
         public static int currentScene { get; set; }
+
+        //gameobjects
+        private House house;
+        private StaticObject inBg1;
+        private StaticObject bed;
+        private Item note;
         private Player player;
         private static Player staticPlayer;
-        public static Player Player
-        {
-            get { return staticPlayer; }
-        }
+        public static Player Player{ get { return staticPlayer; } }
 
-        private House house;
+        //constructer for gameworld
         public GameWorld(Graphics dc, Rectangle displayRectangle)
         {
             SetupWorld();
@@ -42,10 +45,16 @@ namespace Spillet
             currentScene = 0;
             //add objects and so on which should be there on load
            
+            //scene 0 assets
             house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.4f, 1,1);
 
             //create player last
             player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100);
+            
+            //scene 1 assets
+            inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
+            bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
+            note = new Item(0, @"Art Assets\Props\note.png", new Vector2D(100, 100), 1, 0, 1);
         }
 
         public void GameLoop()
@@ -66,13 +75,23 @@ namespace Spillet
             //clear all content
             dc.Clear(Color.Gray);
             //background
-            
+            PrintText();
             foreach (var go in gameObjects) // Makes sure that we call draw on all gameobjects
                 go.Draw(dc);
             backBuffer.Render();
-
         }
 
+        void PrintText()
+        {
+            Font font1 = new Font("Arial", 15);
+            Brush brush1 = new SolidBrush(Color.White);
+            string text;
+            if (currentScene != 0 && player.Posistion.Y <= 120 && player.Posistion.X <= 50)
+            {
+                text = "Press E to\nExit the building";
+                dc.DrawString(text, font1, brush1, 765, 50);
+            }
+        }
         private float playerOgPX = 200;
         private float playerOgPY = 200;
         private bool playerHasBeenReset;
@@ -142,11 +161,10 @@ namespace Spillet
                         playerHasEnteredHouse = true;
                     }
                     gameObjects.Clear();
-                    StaticObject inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
-                    StaticObject bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
+                    
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
-
+                    gameObjects.Add(note);
                     //insert player last
                     gameObjects.Add(player);
                     if (player.Posistion.Y < 44)

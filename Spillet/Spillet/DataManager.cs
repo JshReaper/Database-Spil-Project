@@ -46,7 +46,18 @@ namespace Spillet
                 commandOnCreate.ExecuteNonQuery();
                 commandOnCreate = new SQLiteCommand(sqlevent, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
-
+                string eventMaker = "insert into Event values(null,\"As you enter the house you notice a shadow that quickly disapears underneath some of the furnature\",1)";
+                commandOnCreate = new SQLiteCommand(eventMaker, dbConnOnCreate);
+                commandOnCreate.ExecuteNonQuery();
+                eventMaker = "insert into Event values(null,\"As you enter the house you feel a cold chill rising through your body, you look around but all windows seems to be closed \n and there seems to be no people around.\",1)";
+                commandOnCreate = new SQLiteCommand(eventMaker, dbConnOnCreate);
+                commandOnCreate.ExecuteNonQuery();
+                eventMaker = "insert into Event values(null,\"You enter the house and immidiatly you feel something is wrong, you look around \n but you can't seem to find anything wrong, your gaze falls on a shadow on the floor seemingly from nowhere.\",0)";
+                commandOnCreate = new SQLiteCommand(eventMaker, dbConnOnCreate);
+                commandOnCreate.ExecuteNonQuery();
+                string itemMaker = "insert into Item values(null,\"Note1\",false,\"Note\")";
+                commandOnCreate = new SQLiteCommand(itemMaker, dbConnOnCreate);
+                commandOnCreate.ExecuteNonQuery();
                 currentSave = 1;
                 //end logic
                 dbConnOnCreate.Close();

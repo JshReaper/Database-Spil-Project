@@ -162,8 +162,8 @@ namespace Spillet
         public override void OnCollision(GameObject other)
         {
             var house = other as House;
-            var StaticObject = other as StaticObject;
-            if (house != null || StaticObject !=null && StaticObject.CanCollide)
+            var staticObject = other as StaticObject;
+            if (house != null || staticObject !=null && staticObject.CanCollide)
             {
                 enterHouseTimer = 0;
                 houseToEnter = house;

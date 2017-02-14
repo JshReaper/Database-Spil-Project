@@ -90,6 +90,7 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(toRetrive, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
+            dr.Read();
             string toReturn = dr.GetString(2);
             dbCon.Close();
             return toReturn;
@@ -102,6 +103,7 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
+            dr.Read();
             string toReturn = dr.GetString(3);
             dbCon.Close();
             return toReturn;
@@ -113,6 +115,7 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
+            dr.Read();
             string toReturn = dr.GetString(1);
             dbCon.Close();
             return toReturn;
@@ -124,6 +127,7 @@ namespace Spillet
             SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
+            dr.Read();
             bool toReturn = dr.GetBoolean(2);
             dbCon.Close();
             return toReturn;

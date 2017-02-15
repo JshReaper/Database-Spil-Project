@@ -122,6 +122,18 @@
     <Folder Include="Art Assets\Enviroment\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Art Assets\Menus\Main Menu\Load Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art Assets\Menus\Main Menu\Main title menu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art Assets\Menus\Main Menu\Options Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art Assets\Menus\Main Menu\sTART Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Scenes\greenBg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -173,7 +185,7 @@
     <Content Include="Art Assets\Player\player_Idle_Right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art Assets\Menus\Inventory\Inventory Resized.png">
+    <Content Include="Art Assets\Menus\Inventory\Inventory Screen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Art Assets\Scenes\owbg.jpg">

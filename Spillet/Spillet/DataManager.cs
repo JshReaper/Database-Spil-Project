@@ -25,7 +25,7 @@ namespace Spillet
                 //initial logic
 
 
-                string player = "create table Player (id integer primary key,sanity float, posX int, posY int, house int, inventory int, cluetoken int)";
+                string player = "create table Player (id integer primary key,sanity float, posX float, posY float, house int, inventory int, cluetoken int)";
                 string inventory = "create table Inventory(id integer primary key, item int)";
                 string item = "create table Item ( id integer primary key, name string, consumable integer, type string)";
                 string enemy = "create table Enemy (id integer primary key, type string, fearFactor float)";
@@ -155,7 +155,7 @@ namespace Spillet
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
             dbConn.Open();
             //ongoing logic
-            string playerSave = String.Format("Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5});", GameWorld.Player.Sanity,GameWorld.Player.Posistion.X,GameWorld.Player.Posistion.Y,GameWorld.currentScene,GameWorld.Player.Id,0);
+            string playerSave = String.Format("delete from player;"+"Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5});", GameWorld.Player.Sanity,GameWorld.Player.Posistion.X,GameWorld.Player.Posistion.Y,GameWorld.currentScene,GameWorld.Player.Id,0);
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 
@@ -168,13 +168,15 @@ namespace Spillet
             dbConn.Open();
             //ongoing logic
             string playerSave = String.Format(
-                "Update player set sanity = {0} where ID = {1});" +
-                "Update player set posX = {2} where ID = {1});" +
-                "Update player set posY = {3} where ID = {1});" +
-                "Update player set house = {4} where ID = {1});" +
-                "Update player set inventory = {5} where ID = {1});" +
-                "Update player set cluetoken = {6} where ID = {1});", 
-                GameWorld.Player.Sanity , GameWorld.Player.Id, GameWorld.Player.Posistion.X, GameWorld.Player.Posistion.Y, GameWorld.currentScene, GameWorld.Player.Id,GameWorld.Player.ClueToken);
+                "Update player set sanity = {0} where ID = {1};" +
+                "Update player set posX = {2} where ID = {1};" +
+                "Update player set posY = {3} where ID = {1};" +
+                "Update player set house = {4} where ID = {1};" +
+                "Update player set inventory = {5} where ID = {1};" +
+                "Update player set cluetoken = {6} where ID = {1};", 
+                GameWorld.Player.Sanity , GameWorld.Player.Id, (int)GameWorld.Player.Posistion.X, (int)GameWorld.Player.Posistion.Y, GameWorld.currentScene, GameWorld.Player.Id,GameWorld.Player.ClueToken);
+
+
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 

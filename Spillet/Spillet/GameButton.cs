@@ -11,6 +11,7 @@ namespace Spillet
         Start,
         Load,
         Options,
+        Save,
     }
     class GameButton: GameObject
     {
@@ -41,6 +42,10 @@ namespace Spillet
                 if (myType == ButtonType.Options)
                 {
 
+                }
+                if (myType == ButtonType.Save)
+                {
+                    DataManager.Save();
                 }
             }
         }

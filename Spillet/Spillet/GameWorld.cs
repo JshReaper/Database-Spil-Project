@@ -56,7 +56,9 @@ namespace Spillet
         private GameButton load_btn;
         private GameButton options_btn;
         private GameButton start_btn;
+        private GameButton save_btn;
         private StaticObject MenuTitle;
+
         void SetupWorld()
         {
             currentScene = -1;
@@ -67,7 +69,10 @@ namespace Spillet
             MenuTitle = new StaticObject(0,@"Art Assets\Menus\Main Menu\Main title menu.png",new Vector2D(0,0),1,0,false );
             options_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Options Button.png", new Vector2D(50, 180), 1, 0,ButtonType.Options);
             start_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Start Button.png", new Vector2D(50, 130), 1, 0,ButtonType.Start);
-            
+
+            // all non menu objects
+            player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100, 1);
+            save_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Save Button.png", new Vector2D(700, 450), 1, 0, ButtonType.Save);
 
             //scene 0 assets
             house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.3f, 0,1);
@@ -75,8 +80,7 @@ namespace Spillet
             house3 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(50, 300), 0.3f, 0, 3);
 
             //create player last
-            player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100,1);
-            
+           
             //scene 1 assets
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
             bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
@@ -168,15 +172,7 @@ namespace Spillet
             }
         }
 
-        void NewGame()
-        {
-            
-        }
-
-        void ContinueGame()
-        {
-            
-        }
+        
         private void GameOver()
         {
             //the game ends // player get shown restart or similar screen
@@ -207,6 +203,7 @@ namespace Spillet
                     gameObjects.Add(house);
                     gameObjects.Add(house2);
                     gameObjects.Add(house3);
+                    gameObjects.Add(save_btn);
                     //removing the Event
                     he = null;
                     //insert player last
@@ -245,6 +242,7 @@ namespace Spillet
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
                     gameObjects.Add(note);
+                    gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);
                     if (player.Posistion.Y < 44)
@@ -298,6 +296,7 @@ namespace Spillet
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
                     gameObjects.Add(note);
+                    gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);
                     if (player.Posistion.Y < 44)
@@ -351,6 +350,7 @@ namespace Spillet
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
                     gameObjects.Add(note);
+                    gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);
                     if (player.Posistion.Y < 44)

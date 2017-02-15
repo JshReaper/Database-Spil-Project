@@ -20,17 +20,23 @@ namespace Spillet
             this.myType = myType;
         }
 
+        private bool newGameGenerated = false;
         public override void OnCollision(GameObject other)
         {
             if (other is MouseClick)
             {
                 if (myType == ButtonType.Start)
                 {
-                    GameWorld.currentScene = 1;
+                    if (!newGameGenerated)
+                    { 
+                        DataManager.NewGame();
+                        GameWorld.currentScene = 0;
+                        newGameGenerated = true;
+                    }
                 }
                 if (myType == ButtonType.Load)
                 {
-
+                    DataManager.ContinueGame();
                 }
                 if (myType == ButtonType.Options)
                 {

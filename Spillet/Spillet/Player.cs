@@ -28,11 +28,15 @@ namespace Spillet
 
         public float MoveSpeed { get { return moveSpeed; } }
         private float moveSpeed;
-        public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
+        private byte id;
+        public byte Id { get
+        {
+            return id;
+        } }
+        public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity, byte id) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
             this.sanity = sanity;
-            
-
+            this.id = id;
         }
 
         private bool toggle = false;

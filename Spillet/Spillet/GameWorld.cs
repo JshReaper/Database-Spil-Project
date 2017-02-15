@@ -168,7 +168,11 @@ namespace Spillet
             }else if (!Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && !Limiter)
             {
                 Limiter = true;
-
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    if (gameObjects[i] is MouseClick)
+                        gameObjects.RemoveAt(i);
+                }
             }
         }
 

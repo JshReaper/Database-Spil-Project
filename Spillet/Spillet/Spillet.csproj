@@ -80,6 +80,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameButton.cs" />
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
@@ -132,7 +133,7 @@
     <Content Include="Art Assets\Menus\Main Menu\Options Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art Assets\Menus\Main Menu\sTART Button.png">
+    <Content Include="Art Assets\Menus\Main Menu\Start Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Art Assets\Mouse\mouse.png">

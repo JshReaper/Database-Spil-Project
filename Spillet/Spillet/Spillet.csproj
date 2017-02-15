@@ -148,7 +148,7 @@
     <Content Include="Art Assets\Scenes\greenBg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art Assets\Props\note.png">
+    <Content Include="Art Assets\Props\Note.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art Assets\Buildings\house.png">

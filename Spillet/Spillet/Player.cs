@@ -12,9 +12,9 @@ namespace Spillet
         private bool movingDown;
         private House houseToEnter;
         private float sanity;
-        private List<Item> inventory = new List<Item>();
+        private Item[] inventory = new Item[10];
 
-        public List<Item> Invintory
+        public Item[] Inventory
         {
             get { return inventory; }
             set { inventory = value; }
@@ -139,7 +139,14 @@ namespace Spillet
             {
                 itemToPickUp.Posistion.X = 700;
                 itemToPickUp.Posistion.Y = 500;
-                inventory.Add(itemToPickUp);
+                for (int i = 0; i < inventory.Length; i++)
+                {
+                    if (inventory[i] == null)
+                    {
+                        inventory[i] = itemToPickUp;
+                        break;
+                    }
+                }
                 itemToPickUp = null;
                 pickUpItem = false;
                 toggle = !toggle;

@@ -26,7 +26,7 @@ namespace Spillet
 
 
                 string player = "create table Player (id integer primary key,sanity float, posX float, posY float, house int, inventory int, cluetoken int)";
-                string inventory = "create table Inventory(id integer primary key, item int)";
+                string inventory = "create table Inventory(id integer primary key, item1 int,item2 int,item3 int,item4 int,item5 int,item6 int,item7 int,item8 int,item9 int,item10 int)";
                 string item = "create table Item ( id integer primary key, name string, consumable integer, type string)";
                 string enemy = "create table Enemy (id integer primary key, type string, fearFactor float)";
                 string house = "create table House (id integer primary key, name string, event int, level int)";
@@ -69,6 +69,9 @@ namespace Spillet
                 commandOnCreate.ExecuteNonQuery();
                 itemMaker = "insert into Item values(null,\"Note2\",0,\"Note\")";
                 commandOnCreate = new SQLiteCommand(itemMaker, dbConnOnCreate);
+                commandOnCreate.ExecuteNonQuery();
+                string inventoryMaker = "insert into inventory(id) values(null)";
+                commandOnCreate = new SQLiteCommand(inventoryMaker, dbConnOnCreate);
                 commandOnCreate.ExecuteNonQuery();
 
                 currentSave = 1;
@@ -150,10 +153,11 @@ namespace Spillet
         {
             SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
             string retrieve ="select * from Player where id = 1";
+
             SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
             dbCon.Open();
             SQLiteDataReader dr = dbCom.ExecuteReader();
-            
+
             dr.Read();
 
             GameWorld.Player.Sanity = dr.GetFloat(1);
@@ -161,7 +165,15 @@ namespace Spillet
             GameWorld.Player.Posistion.Y = dr.GetFloat(3);
             GameWorld.currentScene = dr.GetInt32(4);
             GameWorld.Player.ClueToken = dr.GetInt32(6);
-
+            retrieve = "select * from inventory where id = 1";
+            dbCom = new SQLiteCommand(retrieve,dbCon);
+            dr = dbCom.ExecuteReader();
+            dr.Read();
+            for (int i = 0; i < GameWorld.Player.Inventory.Length; i++)
+            {
+                if(dr.GetInt32(i) != 0)
+                GameWorld.Player.Inventory[i] = new Item(0, $@"Art Assets\Props\{DataManager.RetriveItemType(dr.GetInt32(i))}.png", new Vector2D(0,0),1,0,(byte)dr.GetInt32(i));
+            }
             dbCon.Close();
 
         }
@@ -171,7 +183,10 @@ namespace Spillet
             dbConn.Open();
             //ongoing logic
             string playerSave = String.Format("delete from player;"+"Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5});", GameWorld.Player.Sanity,GameWorld.Player.Posistion.X,GameWorld.Player.Posistion.Y,GameWorld.currentScene,GameWorld.Player.Id,0);
+            string inventorySave = "delete from inventory;" + "insert into inventory(id) values(null)";
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
+            commandOnCreate.ExecuteNonQuery();
+            commandOnCreate = new SQLiteCommand(inventorySave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 
             //end logic
@@ -191,10 +206,34 @@ namespace Spillet
                 "Update player set cluetoken = {6} where ID = {1};", 
                 GameWorld.Player.Sanity , GameWorld.Player.Id, (int)GameWorld.Player.Posistion.X, (int)GameWorld.Player.Posistion.Y, GameWorld.currentScene, GameWorld.Player.Id,GameWorld.Player.ClueToken);
 
+            int[] itemslots = new int[10];
 
+            for (int i = 0; i < GameWorld.Player.Inventory.Length; i++)
+            {
+                if (GameWorld.Player.Inventory[i] != null)
+                {
+                    itemslots[i] = GameWorld.Player.Inventory[i].Id;
+                }
+                else
+                {
+                    itemslots[i] = 0;
+                }
+            }
+            string inventorySave = string.Format("Update inventory set item1 = {1} where ID = {0};" +
+                                                 "Update inventory set item2 = {2} where ID = {0};" +
+                                                 "Update inventory set item3 = {3} where ID = {0};" +
+                                                 "Update inventory set item4 = {4} where ID = {0};" +
+                                                 "Update inventory set item5 = {5} where ID = {0};" +
+                                                 "Update inventory set item6 = {6} where ID = {0};" +
+                                                 "Update inventory set item7 = {7} where ID = {0};" +
+                                                 "Update inventory set item8 = {8} where ID = {0};" +
+                                                 "Update inventory set item9 = {9} where ID = {0};" +
+                                                 "Update inventory set item10 = {10} where ID = {0};",
+                                                 1, itemslots[0], itemslots[1], itemslots[2], itemslots[3], itemslots[4], itemslots[5], itemslots[6], itemslots[7], itemslots[8], itemslots[9]);
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
-
+            commandOnCreate = new SQLiteCommand(inventorySave, dbConn);
+            commandOnCreate.ExecuteNonQuery();
             //end logic
             dbConn.Close();
         }

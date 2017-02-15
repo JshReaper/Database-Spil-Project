@@ -33,6 +33,7 @@ namespace Spillet
         private StaticObject inBg1;
         private StaticObject bed;
         private Item note;
+        private Item note2;
         private Player player;
         private static Player staticPlayer;
         private StaticObject inBg3;
@@ -84,7 +85,8 @@ namespace Spillet
             //scene 1 assets
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
             bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
-            note = new Item(0, @"Art Assets\Props\note.png", new Vector2D(100, 100), 1, 0, 1);
+            note = new Item(0, @"Art Assets\Props\Note.png", new Vector2D(100, 100), 1, 0, 1);
+            note2 = new Item(0, @"Art Assets\Props\note.png", new Vector2D(200, 200), 1, 0, 1);
 
             //scene 2 assets
             inBg2 = new StaticObject(0, @"Art Assets\Scenes\House1.png", new Vector2D(0, 0), 1.06f, 0, false);
@@ -253,6 +255,7 @@ namespace Spillet
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
                     gameObjects.Add(note);
+                    gameObjects.Add(note2);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);
@@ -304,9 +307,7 @@ namespace Spillet
                     }
                     gameObjects.Clear();
 
-                    gameObjects.Add(inBg1);
-                    gameObjects.Add(bed);
-                    gameObjects.Add(note);
+                    gameObjects.Add(inBg2);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);
@@ -358,9 +359,7 @@ namespace Spillet
                     }
                     gameObjects.Clear();
 
-                    gameObjects.Add(inBg1);
-                    gameObjects.Add(bed);
-                    gameObjects.Add(note);
+                    gameObjects.Add(inBg3);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);

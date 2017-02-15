@@ -192,6 +192,8 @@ namespace Spillet
                     gameObjects.Add(house);
                     gameObjects.Add(house2);
                     gameObjects.Add(house3);
+                    //removing the Event
+                    he = null;
                     //insert player last
                     gameObjects.Add(player);
 
@@ -205,8 +207,22 @@ namespace Spillet
                         player.Posistion.X = 200;
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
-                        he = new GameEvent(4);
-                        
+                        if (player.Sanity >= 80)
+                        {
+                            he = new GameEvent(1);
+                        }else
+                        if (player.Sanity >= 60)
+                        {
+                            he = new GameEvent(2);
+                        }else
+                        if (player.Sanity >= 40)
+                        {
+                            he = new GameEvent(3);
+                        }else
+                        if (player.Sanity < 40)
+                        {
+                            he = new GameEvent(4);
+                        }
                     }
                     
                     gameObjects.Clear();
@@ -242,6 +258,25 @@ namespace Spillet
                         player.Posistion.X = 200;
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
+                        if (player.Sanity >= 80)
+                        {
+                            he = new GameEvent(1);
+                        }
+                        else
+                        if (player.Sanity >= 60)
+                        {
+                            he = new GameEvent(2);
+                        }
+                        else
+                        if (player.Sanity >= 40)
+                        {
+                            he = new GameEvent(3);
+                        }
+                        else
+                        if (player.Sanity < 40)
+                        {
+                            he = new GameEvent(4);
+                        }
                     }
                     gameObjects.Clear();
 
@@ -276,6 +311,25 @@ namespace Spillet
                         player.Posistion.X = 200;
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
+                        if (player.Sanity >= 80)
+                        {
+                            he = new GameEvent(1);
+                        }
+                        else
+                        if (player.Sanity >= 60)
+                        {
+                            he = new GameEvent(2);
+                        }
+                        else
+                        if (player.Sanity >= 40)
+                        {
+                            he = new GameEvent(3);
+                        }
+                        else
+                        if (player.Sanity < 40)
+                        {
+                            he = new GameEvent(4);
+                        }
                     }
                     gameObjects.Clear();
 

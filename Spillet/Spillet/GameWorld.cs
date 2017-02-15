@@ -61,10 +61,10 @@ namespace Spillet
             //add objects and so on which should be there on load
 
             //scene -1 assets (menu)
-            load_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Load Button.png", new Vector2D(50, 155), 1, 0);
+            load_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Load Button.png", new Vector2D(50, 155), 1, 0,ButtonType.Load);
             MenuTitle = new StaticObject(0,@"Art Assets\Menus\Main Menu\Main title menu.png",new Vector2D(0,0),1,0,false );
-            options_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Options Button.png", new Vector2D(50, 180), 1, 0);
-            start_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Start Button.png", new Vector2D(50, 130), 1, 0);
+            options_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Options Button.png", new Vector2D(50, 180), 1, 0,ButtonType.Options);
+            start_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Start Button.png", new Vector2D(50, 130), 1, 0,ButtonType.Start);
             
 
             //scene 0 assets

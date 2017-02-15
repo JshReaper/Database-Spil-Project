@@ -167,7 +167,14 @@ namespace Spillet
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
             dbConn.Open();
             //ongoing logic
-            string playerSave = String.Format("Update player set sanity = {0} where ID = {1});", GameWorld.Player.Sanity , currentSave);
+            string playerSave = String.Format(
+                "Update player set sanity = {0} where ID = {1});" +
+                "Update player set posX = {2} where ID = {1});" +
+                "Update player set posY = {3} where ID = {1});" +
+                "Update player set house = {4} where ID = {1});" +
+                "Update player set inventory = {5} where ID = {1});" +
+                "Update player set cluetoken = {6} where ID = {1});", 
+                GameWorld.Player.Sanity , GameWorld.Player.Id, GameWorld.Player.Posistion.X, GameWorld.Player.Posistion.Y, GameWorld.currentScene, GameWorld.Player.Id,GameWorld.Player.ClueToken);
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 

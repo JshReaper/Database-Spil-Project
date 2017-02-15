@@ -33,6 +33,9 @@ namespace Spillet
         {
             return id;
         } }
+
+        public int ClueToken { get; set; }
+
         public Player(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, float sanity, byte id) : base(speed, imgPath, pos, scaleFactor, animationSpeed)
         {
             this.sanity = sanity;

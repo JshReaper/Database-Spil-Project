@@ -5,6 +5,7 @@ namespace Spillet
     class GameEvent
     {
         int clueTokens;
+        bool recived = false;
         string eventText;
     public GameEvent(byte ID)
         {
@@ -16,8 +17,10 @@ namespace Spillet
 
         public void drawDesc(Graphics dc)
         {
-            dc.DrawRectangle(new Pen(Brushes.DarkGray),new Rectangle(new Point(40,390),new Size(650,100)));
+            dc.DrawRectangle(new Pen(Brushes.DarkGray), new Rectangle(new Point(40, 390), new Size(650, 100)));
             dc.DrawString(eventText, new Font("Arial", 11), Brushes.Black, 50, 400);
+            if (!recived)
+                GameWorld.Player.ClueToken += clueTokens;
         }
     }
     

@@ -160,8 +160,5 @@ namespace Spillet
             //end logic
             dbConn.Close();
         }
-
-        
-        
     }
 }

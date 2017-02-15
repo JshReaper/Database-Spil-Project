@@ -23,6 +23,7 @@ namespace Spillet
         public float Sanity
         {
             get {return sanity; }
+            set { sanity = value; }
         }
 
         public float MoveSpeed { get { return moveSpeed; } }

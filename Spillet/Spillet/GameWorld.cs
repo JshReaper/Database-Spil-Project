@@ -19,14 +19,22 @@ namespace Spillet
         private static List<GameObject> gameObjects = new List<GameObject>();
         public static List<GameObject> GameObjects { get { return gameObjects; } }
         public static int currentScene { get; set; }
+        private float playerOgPX = 200;
+        private float playerOgPY = 200;
+        private bool playerHasBeenReset;
+        private bool playerHasEnteredHouse;
 
         //gameobjects
         private House house;
+        private House house2;
+        private House house3;
         private StaticObject inBg1;
         private StaticObject bed;
         private Item note;
         private Player player;
         private static Player staticPlayer;
+        private StaticObject inBg3;
+        private StaticObject inBg2;
         public static Player Player{ get { return staticPlayer; } }
 
         //constructer for gameworld
@@ -46,7 +54,9 @@ namespace Spillet
             //add objects and so on which should be there on load
            
             //scene 0 assets
-            house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.4f, 1,1);
+            house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.3f, 0,1);
+            house2 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(330, 100), 0.3f, 0, 2);
+            house3 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(50, 300), 0.3f, 0, 3);
 
             //create player last
             player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100);
@@ -55,6 +65,13 @@ namespace Spillet
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
             bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
             note = new Item(0, @"Art Assets\Props\note.png", new Vector2D(100, 100), 1, 0, 1);
+
+            //scene 2 assets
+            inBg2 = new StaticObject(0, @"Art Assets\Scenes\House1.png", new Vector2D(0, 0), 1.06f, 0, false);
+            //scene 3 assets
+            inBg3 = new StaticObject(0, @"Art Assets\Scenes\House2.png", new Vector2D(0, 0), 1.06f, 0, false);
+
+
         }
 
         public void GameLoop()
@@ -92,10 +109,7 @@ namespace Spillet
                 dc.DrawString(text, font1, brush1, 765, 50);
             }
         }
-        private float playerOgPX = 200;
-        private float playerOgPY = 200;
-        private bool playerHasBeenReset;
-        private bool playerHasEnteredHouse;
+        
         void resetPlayerPos()
         {
             player.Posistion.X = playerOgPX;
@@ -142,10 +156,11 @@ namespace Spillet
                     if (!playerHasBeenReset)
                         resetPlayerPos();
                     gameObjects.Clear();
-                    StaticObject outBg = new StaticObject(0, @"Art Assets\Scenes\owbg.jpg", new Vector2D(0, 0), 1, 0, false);
+                    StaticObject outBg = new StaticObject(0, @"Art Assets\Scenes\greenBg.png", new Vector2D(0, 0), 0.6f, 0, false);
                     gameObjects.Add(outBg);
                     gameObjects.Add(house);
-
+                    gameObjects.Add(house2);
+                    gameObjects.Add(house3);
                     //insert player last
                     gameObjects.Add(player);
 
@@ -184,7 +199,74 @@ namespace Spillet
                         player.Posistion.X -= movespeed;
                     }
                     break;
+                case 2:
+                    playerHasBeenReset = false;
+                    if (!playerHasEnteredHouse)
+                    {
+                        playerOgPX = player.Posistion.X;
+                        playerOgPY = player.Posistion.Y;
+                        player.Posistion.X = 200;
+                        player.Posistion.Y = 200;
+                        playerHasEnteredHouse = true;
+                    }
+                    gameObjects.Clear();
 
+                    gameObjects.Add(inBg1);
+                    gameObjects.Add(bed);
+                    gameObjects.Add(note);
+                    //insert player last
+                    gameObjects.Add(player);
+                    if (player.Posistion.Y < 44)
+                    {
+                        player.Posistion.Y += movespeed;
+                    }
+                    if (player.Posistion.Y > 296)
+                    {
+                        player.Posistion.Y -= movespeed;
+                    }
+                    if (player.Posistion.X < 16)
+                    {
+                        player.Posistion.X += movespeed;
+                    }
+                    if (player.Posistion.X > 698)
+                    {
+                        player.Posistion.X -= movespeed;
+                    }
+                    break;
+                case 3:
+                    playerHasBeenReset = false;
+                    if (!playerHasEnteredHouse)
+                    {
+                        playerOgPX = player.Posistion.X;
+                        playerOgPY = player.Posistion.Y;
+                        player.Posistion.X = 200;
+                        player.Posistion.Y = 200;
+                        playerHasEnteredHouse = true;
+                    }
+                    gameObjects.Clear();
+
+                    gameObjects.Add(inBg1);
+                    gameObjects.Add(bed);
+                    gameObjects.Add(note);
+                    //insert player last
+                    gameObjects.Add(player);
+                    if (player.Posistion.Y < 44)
+                    {
+                        player.Posistion.Y += movespeed;
+                    }
+                    if (player.Posistion.Y > 296)
+                    {
+                        player.Posistion.Y -= movespeed;
+                    }
+                    if (player.Posistion.X < 16)
+                    {
+                        player.Posistion.X += movespeed;
+                    }
+                    if (player.Posistion.X > 698)
+                    {
+                        player.Posistion.X -= movespeed;
+                    }
+                    break;
             }
         }
     }

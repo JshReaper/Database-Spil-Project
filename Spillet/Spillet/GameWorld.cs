@@ -165,6 +165,8 @@ namespace Spillet
                     gameObjects.Add(house);
                     gameObjects.Add(house2);
                     gameObjects.Add(house3);
+                    //removing the Event
+                    he = null;
                     //insert player last
                     gameObjects.Add(player);
 

@@ -136,6 +136,9 @@
     <Content Include="Art Assets\Menus\Main Menu\Options Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art Assets\Menus\Main Menu\Save Button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Menus\Main Menu\Start Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

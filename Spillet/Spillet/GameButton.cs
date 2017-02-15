@@ -22,6 +22,7 @@ namespace Spillet
         }
 
         private bool newGameGenerated = false;
+        private bool gameHasLoaded = false;
         public override void OnCollision(GameObject other)
         {
             if (other is MouseClick)
@@ -37,7 +38,11 @@ namespace Spillet
                 }
                 if (myType == ButtonType.Load)
                 {
-                    DataManager.ContinueGame();
+                    if (!gameHasLoaded)
+                    { 
+                        DataManager.ContinueGame();
+                        gameHasLoaded = true;
+                    }
                 }
                 if (myType == ButtonType.Options)
                 {

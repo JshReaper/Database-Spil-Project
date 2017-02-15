@@ -148,7 +148,22 @@ namespace Spillet
         }
         public static void ContinueGame()
         {
-            //get a saved game from the database
+            SQLiteConnection dbCon = new SQLiteConnection("Data Source=Data.db;Version=3;");
+            string retrieve ="select * from Player where id = 1";
+            SQLiteCommand dbCom = new SQLiteCommand(retrieve, dbCon);
+            dbCon.Open();
+            SQLiteDataReader dr = dbCom.ExecuteReader();
+            
+            dr.Read();
+
+            GameWorld.Player.Sanity = dr.GetFloat(1);
+            GameWorld.Player.Posistion.X = dr.GetFloat(2);
+            GameWorld.Player.Posistion.Y = dr.GetFloat(3);
+            GameWorld.currentScene = dr.GetInt32(4);
+            GameWorld.Player.ClueToken = dr.GetInt32(6);
+
+            dbCon.Close();
+
         }
         public static void  NewGame()
         {

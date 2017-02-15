@@ -140,6 +140,8 @@ namespace Spillet
             playerHasEnteredHouse = false;
         }
         bool Limiter = true;
+        private bool onLoad = true;
+
         void Update(float fps)
         {
             staticPlayer = player;
@@ -199,7 +201,12 @@ namespace Spillet
                     gameObjects.Add(options_btn);
                     break;
                 case 0:
-                    if (!playerHasBeenReset)
+                    if (onLoad)
+                    {
+                        onLoad = false;
+                        playerHasBeenReset = true;
+                    }
+                    else if (!playerHasBeenReset)
                         resetPlayerPos();
                     gameObjects.Clear();
                     StaticObject outBg = new StaticObject(0, @"Art Assets\Scenes\greenBg.png", new Vector2D(0, 0), 0.6f, 0, false);

@@ -146,28 +146,35 @@ namespace Spillet
             dbCon.Close();
             return toReturn;
         }
-        static void ContinueGame()
+        public static void ContinueGame()
         {
             //get a saved game from the database
         }
-        static void NewGame()
+        public static void  NewGame()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
             dbConn.Open();
             //ongoing logic
-            string playerSave = String.Format("Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5},{6});", GameWorld.Player.Sanity);
+            string playerSave = String.Format("Insert into player(id,sanity, posX , posY , house , inventory , cluetoken ) values(null,{0},{1},{2},{3},{4},{5});", GameWorld.Player.Sanity,GameWorld.Player.Posistion.X,GameWorld.Player.Posistion.Y,GameWorld.currentScene,GameWorld.Player.Id,0);
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 
             //end logic
             dbConn.Close();
         }
-        static void Save()
+        public static void Save()
         {
             SQLiteConnection dbConn = new SQLiteConnection("Data Source=Data.db;Version=3;");
             dbConn.Open();
             //ongoing logic
-            string playerSave = String.Format("Update player set sanity = {0} where ID = {1});", GameWorld.Player.Sanity , currentSave);
+            string playerSave = String.Format(
+                "Update player set sanity = {0} where ID = {1});" +
+                "Update player set posX = {2} where ID = {1});" +
+                "Update player set posY = {3} where ID = {1});" +
+                "Update player set house = {4} where ID = {1});" +
+                "Update player set inventory = {5} where ID = {1});" +
+                "Update player set cluetoken = {6} where ID = {1});", 
+                GameWorld.Player.Sanity , GameWorld.Player.Id, GameWorld.Player.Posistion.X, GameWorld.Player.Posistion.Y, GameWorld.currentScene, GameWorld.Player.Id,GameWorld.Player.ClueToken);
             SQLiteCommand commandOnCreate = new SQLiteCommand(playerSave, dbConn);
             commandOnCreate.ExecuteNonQuery();
 

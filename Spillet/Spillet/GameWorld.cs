@@ -159,10 +159,12 @@ namespace Spillet
             {
                PointF f = form.PointToClient(System.Windows.Forms.Cursor.Position);
                 MouseClick click = new MouseClick(0,"",new Vector2D(f.X,f.Y),1,0);
+                gameObjects.Add(click);
                 Limiter = false;
             }else if (!Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && !Limiter)
             {
                 Limiter = true;
+
             }
         }
 

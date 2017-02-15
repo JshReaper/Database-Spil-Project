@@ -29,6 +29,8 @@ namespace Spillet
         private static Player staticPlayer;
         public static Player Player{ get { return staticPlayer; } }
 
+        //GameEvents
+        GameEvent he;
         //constructer for gameworld
         public GameWorld(Graphics dc, Rectangle displayRectangle)
         {
@@ -78,6 +80,8 @@ namespace Spillet
             PrintText();
             foreach (var go in gameObjects) // Makes sure that we call draw on all gameobjects
                 go.Draw(dc);
+            if (he != null)
+                he.drawDesc(dc);
             backBuffer.Render();
         }
 
@@ -159,8 +163,10 @@ namespace Spillet
                         player.Posistion.X = 200;
                         player.Posistion.Y = 200;
                         playerHasEnteredHouse = true;
-                        GameEvent he = new GameEvent(1);
+                        he = new GameEvent(4);
+                        
                     }
+                    
                     gameObjects.Clear();
                     
                     gameObjects.Add(inBg1);

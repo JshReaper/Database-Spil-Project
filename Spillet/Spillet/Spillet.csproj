@@ -86,6 +86,7 @@
     <Compile Include="House.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Keyboard.cs" />
+    <Compile Include="MouseClick.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

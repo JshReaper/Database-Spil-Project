@@ -164,6 +164,7 @@ namespace Spillet
             }else if (!Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && !Limiter)
             {
                 Limiter = true;
+
             }
         }
 

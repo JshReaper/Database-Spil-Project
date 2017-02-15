@@ -124,6 +124,9 @@
     <Folder Include="Art Assets\Enviroment\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Art Assets\Houses\House.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Menus\Main Menu\Load Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

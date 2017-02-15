@@ -75,7 +75,7 @@ namespace Spillet
             house3 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(50, 300), 0.3f, 0, 3);
 
             //create player last
-            player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100);
+            player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100,1);
             
             //scene 1 assets
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
@@ -158,7 +158,7 @@ namespace Spillet
             if (Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && Limiter)
             {
                PointF f = form.PointToClient(System.Windows.Forms.Cursor.Position);
-                MouseClick click = new MouseClick(0,"",new Vector2D(f.X,f.Y),1,0);
+                MouseClick click = new MouseClick(0,@"Art Assets\Mouse\mouse.png",new Vector2D(f.X,f.Y),0.01f,0);
                 gameObjects.Add(click);
                 Limiter = false;
             }else if (!Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && !Limiter)

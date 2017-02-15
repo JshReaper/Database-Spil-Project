@@ -9,6 +9,7 @@ namespace Spillet
 {
     class GameWorld
     {
+        Form1 form;
         Rectangle displayRectangle;
         private static Rectangle staticDisplayRectangle;
         public static Rectangle DisplayRectangle { get { return staticDisplayRectangle; }}
@@ -40,8 +41,9 @@ namespace Spillet
         //GameEvents
         GameEvent he;
         //constructer for gameworld
-        public GameWorld(Graphics dc, Rectangle displayRectangle)
+        public GameWorld(Graphics dc, Rectangle displayRectangle, Form1 f)
         {
+            form = f;
             SetupWorld();
             this.displayRectangle = displayRectangle;
             backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
@@ -121,6 +123,7 @@ namespace Spillet
             playerHasBeenReset = true;
             playerHasEnteredHouse = false;
         }
+        bool Limiter = true;
         void Update(float fps)
         {
             staticPlayer = player;
@@ -138,6 +141,16 @@ namespace Spillet
             if (player.Sanity <= 0)
             {
                 GameOver();
+            }
+
+            if (Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && Limiter)
+            {
+               PointF f = form.PointToClient(System.Windows.Forms.Cursor.Position);
+                MouseClick click = new MouseClick(0,"",new Vector2D(f.X,f.Y),1,0);
+                Limiter = false;
+            }else if (!Keyboard.IsKeyDown(System.Windows.Forms.Keys.LButton) && !Limiter)
+            {
+                Limiter = true;
             }
         }
 

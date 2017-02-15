@@ -23,7 +23,7 @@ namespace Spillet
         private void Form1_Load(object sender, EventArgs e)
         {
             dc = CreateGraphics();
-            gw = new GameWorld(dc,this.DisplayRectangle);
+            gw = new GameWorld(dc,this.DisplayRectangle,this);
         }
 
         private void GameLoop_Tick(object sender, EventArgs e)

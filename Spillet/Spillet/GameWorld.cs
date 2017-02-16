@@ -32,8 +32,8 @@ namespace Spillet
         private House house3;
         private StaticObject inBg1;
         private StaticObject bed;
+        private Item Lantern;
         private Item note;
-        private Item note2;
         private Player player;
         private static Player staticPlayer;
         private StaticObject inBg3;
@@ -96,12 +96,12 @@ namespace Spillet
             //scene 1 assets
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
             bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
-            note = new Item(0, @"Art Assets\Props\Note.png", new Vector2D(100, 100), 1, 0, 1);
-            note2 = new Item(0, @"Art Assets\Props\note.png", new Vector2D(200, 200), 1, 0, 1);
+            Lantern = new Item(0, @"Art Assets\Props\Lantern.png", new Vector2D(100, 100), 1, 0, 1);
+            note = new Item(0, @"Art Assets\Props\note.png", new Vector2D(200, 200), 1, 0, 2);
             AllGameObjects.Add(inBg1);
             AllGameObjects.Add(bed);
+            AllGameObjects.Add(Lantern);
             AllGameObjects.Add(note);
-            AllGameObjects.Add(note2);
 
             //scene 2 assets
             inBg2 = new StaticObject(0, @"Art Assets\Scenes\House1.png", new Vector2D(0, 0), 1.06f, 0, false);
@@ -212,10 +212,19 @@ namespace Spillet
                     }
                 }
             }
-            
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                var item = gameObjects[i] as Item;
+                if(item != null)
+                if (item.IamInInventory)
+                {
+                    gameObjects.Remove(item);
+                }
+            }
+
         }
 
-        
+
         private void GameOver()
         {
             //the game ends // player get shown restart or similar screen
@@ -289,8 +298,8 @@ namespace Spillet
                     
                     gameObjects.Add(inBg1);
                     gameObjects.Add(bed);
+                    gameObjects.Add(Lantern);
                     gameObjects.Add(note);
-                    gameObjects.Add(note2);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);

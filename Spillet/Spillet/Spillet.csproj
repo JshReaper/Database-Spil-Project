@@ -130,6 +130,12 @@
     <Content Include="Art Assets\Houses\Manor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art Assets\Houses\Small house 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art Assets\Houses\Small House.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Menus\Main Menu\Load Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

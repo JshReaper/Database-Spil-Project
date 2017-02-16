@@ -251,8 +251,17 @@ namespace Spillet
                     }
                     
                     gameObjects.Clear();
-                    
+                    StaticObject Bookshelf = new StaticObject(0,@"Art Assets/Props/Bookshelf0.png",new Vector2D(290,55),0.14f,0,true);
+                    StaticObject MirrorShelf = new StaticObject(0, @"Art Assets/Props/MirrorShelf0.png", new Vector2D(380, 70), 0.15f, 0, true);
+                    StaticObject Skuffe = new StaticObject(0, @"Art Assets/Props/skuffe0.png", new Vector2D(710, 250), 0.15f, 0, true);
+                    StaticObject Table = new StaticObject(0, @"Art Assets/Props/Table0.png", new Vector2D(500, 160), 0.18f, 0, true);
+                    StaticObject Photo = new StaticObject(0, @"Art Assets/Props/Image0.png", new Vector2D(580, 35), 0.14f, 0, true);
                     gameObjects.Add(inBg1);
+                    gameObjects.Add(Bookshelf);
+                    gameObjects.Add(MirrorShelf);
+                    gameObjects.Add(Skuffe);
+                    gameObjects.Add(Table);
+                    gameObjects.Add(Photo);
                     gameObjects.Add(bed);
                     gameObjects.Add(note);
                     gameObjects.Add(note2);
@@ -306,8 +315,19 @@ namespace Spillet
                         }
                     }
                     gameObjects.Clear();
-
+                    StaticObject bookcase = new StaticObject(0, @"Art Assets/Props/Bookshelf0.png", new Vector2D(380, 50), 0.16f, 0, true);
+                    StaticObject bookcase1 = new StaticObject(0, @"Art Assets/Props/Bookshelf0.png", new Vector2D(325, 50), 0.16f, 0, true);
+                    StaticObject Chest = new StaticObject(0, @"Art Assets/Props/Chest0.png", new Vector2D(450, 100), 0.16f, 0, true);
+                    StaticObject bed1 = new StaticObject(0, @"Art Assets/Props/bed0.png", new Vector2D(610, 150), 0.16f, 0, true);
+                    StaticObject Mirror = new StaticObject(0, @"Art Assets/Props/Mirror0.png", new Vector2D(650, 30), 0.42f, 0, false);
+                    StaticObject table = new StaticObject(0, @"Art Assets/Props/Table0.png", new Vector2D(120, 200), 0.16f, 0, true);
                     gameObjects.Add(inBg2);
+                    gameObjects.Add(bookcase);
+                    gameObjects.Add(bookcase1);
+                    gameObjects.Add(table);
+                    gameObjects.Add(Mirror);
+                    gameObjects.Add(bed1);
+                    gameObjects.Add(Chest);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);

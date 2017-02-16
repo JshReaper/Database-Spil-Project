@@ -173,6 +173,7 @@ namespace Spillet
             {
                 if(dr.GetInt32(i) != 0)
                 GameWorld.Player.Inventory[i] = new Item(0, $@"Art Assets\Props\{DataManager.RetriveItemType(dr.GetInt32(i))}.png", new Vector2D(0,0),1,0,(byte)dr.GetInt32(i));
+
             }
             dbCon.Close();
 

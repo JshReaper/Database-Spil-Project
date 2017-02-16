@@ -173,6 +173,18 @@ namespace Spillet
             {
                 if(dr.GetInt32(i) != 0)
                 GameWorld.Player.Inventory[i] = new Item(0, $@"Art Assets\Props\{DataManager.RetriveItemType(dr.GetInt32(i))}.png", new Vector2D(0,0),1,0,(byte)dr.GetInt32(i));
+                for (int j = 0; j < GameWorld.AllGameObjects.Count; j++)
+                {
+                    var item = GameWorld.AllGameObjects[j] as Item;
+                    if (item != null && GameWorld.Player.Inventory[i] != null)
+                    {
+                        if (item.Id == GameWorld.Player.Inventory[i].Id)
+                        {
+                            item.IamInInventory = true;
+
+                        }
+                    }
+                }
             }
             dbCon.Close();
 

@@ -32,8 +32,8 @@ namespace Spillet
         private House house3;
         private StaticObject inBg1;
         private StaticObject bed;
+        private Item Lantern;
         private Item note;
-        private Item note2;
         private Player player;
         private static Player staticPlayer;
         private StaticObject inBg3;
@@ -59,9 +59,10 @@ namespace Spillet
         private GameButton start_btn;
         private GameButton save_btn;
         private StaticObject MenuTitle;
-
+        static public List<GameObject> AllGameObjects { get; set; }
         void SetupWorld()
         {
+            AllGameObjects = new List<GameObject>();
             currentScene = -1;
             //add objects and so on which should be there on load
 
@@ -71,30 +72,48 @@ namespace Spillet
             options_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Options Button.png", new Vector2D(50, 180), 1, 0,ButtonType.Options);
             start_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Start Button.png", new Vector2D(50, 130), 1, 0,ButtonType.Start);
 
+            AllGameObjects.Add(load_btn);
+            AllGameObjects.Add(MenuTitle);
+            AllGameObjects.Add(options_btn);
+            AllGameObjects.Add(start_btn);
+
             // all non menu objects
             player = new Player(60, @"Art Assets\\Player\\player_Idle_Right.png", new Vector2D(200, 200), 0.75f, 1, 100, 1);
             save_btn = new GameButton(0, @"Art assets\\Menus\\Main Menu\\Save Button.png", new Vector2D(700, 450), 1, 0, ButtonType.Save);
+            AllGameObjects.Add(player);
+            AllGameObjects.Add(save_btn);
 
             //scene 0 assets
             house = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(300, 250), 0.3f, 0,1);
             house2 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(330, 100), 0.3f, 0, 2);
             house3 = new House(1, @"Art Assets\\Buildings\\house.png", new Vector2D(50, 300), 0.3f, 0, 3);
+            AllGameObjects.Add(house);
+            AllGameObjects.Add(house2);
+            AllGameObjects.Add(house3);
 
             //create player last
-           
+
             //scene 1 assets
             inBg1 = new StaticObject(0, @"Art Assets\Scenes\House0.png", new Vector2D(0, 0), 1.06f, 0, false);
             bed = new StaticObject(0, @"Art Assets\Props\bed0.png", new Vector2D(630, 270), 0.13f, 0, true);
-            note = new Item(0, @"Art Assets\Props\Note.png", new Vector2D(100, 100), 1, 0, 1);
-            note2 = new Item(0, @"Art Assets\Props\note.png", new Vector2D(200, 200), 1, 0, 1);
+            Lantern = new Item(0, @"Art Assets\Props\Lantern.png", new Vector2D(100, 100), 1, 0, 1);
+            note = new Item(0, @"Art Assets\Props\note.png", new Vector2D(200, 200), 1, 0, 2);
+            AllGameObjects.Add(inBg1);
+            AllGameObjects.Add(bed);
+            AllGameObjects.Add(Lantern);
+            AllGameObjects.Add(note);
 
             //scene 2 assets
             inBg2 = new StaticObject(0, @"Art Assets\Scenes\House1.png", new Vector2D(0, 0), 1.06f, 0, false);
+            AllGameObjects.Add(inBg2);
+
             //scene 3 assets
             inBg3 = new StaticObject(0, @"Art Assets\Scenes\House2.png", new Vector2D(0, 0), 1.06f, 0, false);
+            AllGameObjects.Add(inBg3);
 
 
         }
+
 
         public void GameLoop()
         {
@@ -153,11 +172,12 @@ namespace Spillet
             {
                 go.Update(fps);
             }
-            foreach (var gameObject in gameObjects)
+              foreach (var gameObject in gameObjects)
             {
                 gameObject.CheckCollision();
             }
             SceneController(player.MoveSpeed);
+
             if (player.Sanity <= 0)
             {
                 GameOver();
@@ -178,9 +198,33 @@ namespace Spillet
                         gameObjects.RemoveAt(i);
                 }
             }
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                var item = gameObjects[i] as Item;
+                if (item != null)
+                {
+                    for (int j = 0; j < player.Inventory.Length; j++)
+                    {
+                        if (player.Inventory[j] == gameObjects[i])
+                        {
+                            gameObjects.Remove(player.Inventory[j]);
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                var item = gameObjects[i] as Item;
+                if(item != null)
+                if (item.IamInInventory)
+                {
+                    gameObjects.Remove(item);
+                }
+            }
+
         }
 
-        
+
         private void GameOver()
         {
             //the game ends // player get shown restart or similar screen
@@ -263,8 +307,8 @@ namespace Spillet
                     gameObjects.Add(Table);
                     gameObjects.Add(Photo);
                     gameObjects.Add(bed);
+                    gameObjects.Add(Lantern);
                     gameObjects.Add(note);
-                    gameObjects.Add(note2);
                     gameObjects.Add(save_btn);
                     //insert player last
                     gameObjects.Add(player);

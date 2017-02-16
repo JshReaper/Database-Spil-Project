@@ -13,6 +13,8 @@ namespace Spillet
         private string name; //would be printed out to the player while he hover over the item
         private byte id; //the ID of the item 
         public byte Id { get { return id; } }
+        public bool IamInInventory { get; set; }
+
         bool consumable; //example oil would be consumable to fill the latern
         private ItemType myItemType;
         public Item(float speed, string imgPath, Vector2D pos, float scaleFactor, float animationSpeed, byte id) : base(speed, imgPath, pos, scaleFactor, animationSpeed)

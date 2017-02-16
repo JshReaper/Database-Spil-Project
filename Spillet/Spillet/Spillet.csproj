@@ -127,6 +127,9 @@
     <Content Include="Art Assets\Houses\House.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art Assets\Houses\Manor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art Assets\Menus\Main Menu\Load Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
